@@ -9,7 +9,7 @@ function createPost (data) {
     ...data
   };
 
-  return requester.post('appdata', 'coOwnership', 'kinvey', postObj);
+  return requester.post('appdata', 'coOwnerships', 'kinvey', postObj);
 }
 
 function editPost (postId, author, title, description, url, imageUrl) {

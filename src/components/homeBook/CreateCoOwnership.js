@@ -6,9 +6,12 @@ import coOwnership from '../../services/coOwnershipService'
 
 export default class CreateCoOwnership extends Component {
     onSubmit = (data, e) => {
-        coOwnership.createPost(data).then(
-            res => console.log(res)
-        )
+        coOwnership.createPost(data)
+        .then(res =>{
+            observer.trigger(observer.events.notification, {type: 'success', message: "Co-Ownership Created Successfully!"})
+            this.props.history.push('/');
+        })
+        .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
     render = () => {
         return(
