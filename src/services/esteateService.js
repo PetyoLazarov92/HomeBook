@@ -4,6 +4,10 @@ function loadAllEstates () {
   return requester.get('appdata', 'estates', 'kinvey');
 }
 
+function loadAllEstatesForThisCoOwnership (filter) {
+  return requester.get('appdata', `estates/?query={"coOwnership":"${filter}"}`, 'kinvey');
+}
+
 function createEstate (data) {
   let postObj = {
     ...data
@@ -42,6 +46,7 @@ function loadPostById (postId) {
 
 export default {
   loadAllEstates,
+  loadAllEstatesForThisCoOwnership,
   createEstate,
   editPost,
   deletePost,

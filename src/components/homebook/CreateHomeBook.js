@@ -3,18 +3,27 @@ import BoundForm from '../common/BoundForm';
 import observer from '../../infrastructure/observer';
 import homeBookService from '../../services/homeBookService'
 import esteateService from '../../services/esteateService';
+import coOwnership from '../../services/coOwnershipService';
 
 export default class CreateHomeBook extends Component {
     constructor(props){
         super(props);
 
         this.state = ({
-            estates: []
+            estates: [],
+            coOwnershipName: ''
         })
     }    
 
     componentDidMount() {
-        esteateService.loadAllEstates()
+        const { match: { params } } = this.props;
+        console.log(params.id);
+        coOwnership.loadPostById(params.id)
+            .then(res => {
+                console.log(res);
+                this.setState( {coOwnershipName: res.name} );
+            })
+            esteateService.loadAllEstatesForThisCoOwnership(params.id)
             .then(res => {
                 this.setState( {estates: res} );
             })
@@ -34,7 +43,7 @@ export default class CreateHomeBook extends Component {
             <div className="mx-auto mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
                 <div className="panel panel-info text-center" >
                     <div className="heading">
-                        <h1 className="title">New Home Book Record</h1>
+                        <h2 className="title">New Home Book Record to <span className='font-italic text-primary'>{this.state.coOwnershipName}</span></h2>
                     </div>     
 
                     <div  className="panel-body" >

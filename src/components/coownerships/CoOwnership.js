@@ -37,6 +37,7 @@ export default class CoOwnership extends Component {
         <td>{this.props.postCode}</td>
         <td>
             <Link to={"/create-estate/"+ this.props._id} className="btn btn-primary btn-rounded btn-sm mx-2">Add Estate</Link>
+            <Link to={"/create-home-book/"+ this.props._id} className="btn btn-primary btn-rounded btn-sm mx-2">Add Record</Link>
             <Link to="/" className="btn btn-primary btn-rounded btn-sm mx-2">Details</Link>
             <Link to="/" className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>
             <Link to="/" className="btn btn-danger btn-rounded btn-sm mx-2">Delete</Link>

@@ -25,7 +25,7 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/logout' component={Logout} />
           <Route path='/create-co-ownership' component={CreateCoOwnership} />
-          <Route path='/create-home-book' component={CreateHomeBook} />
+          <Route path='/create-home-book/:id' component={CreateHomeBook} />
           <Route path='/create-estate/:id' component={CreateEstate} />
         </div>
         <Footer />
