@@ -11,7 +11,8 @@ export default class CreateHomeBook extends Component {
 
         this.state = ({
             estates: [],
-            coOwnershipName: ''
+            coOwnershipName: '',
+            coOwnershipId: ''
         })
     }    
 
@@ -21,7 +22,7 @@ export default class CreateHomeBook extends Component {
         coOwnership.loadPostById(params.id)
             .then(res => {
                 console.log(res);
-                this.setState( {coOwnershipName: res.name} );
+                this.setState( {coOwnershipName: res.name, coOwnershipId: res._id} );
             })
             esteateService.loadAllEstatesForThisCoOwnership(params.id)
             .then(res => {
@@ -30,9 +31,17 @@ export default class CreateHomeBook extends Component {
     }
 
     onSubmit = (data, e) => {
-        homeBookService.createHomeBook(data)
+        let newData = {
+            names:data.names,
+            startingDate:data.startingDate,
+            toEstate: data.toEstate,
+            typeOfBusines: data.typeOfBusines,
+            typeOfOccupant: data.typeOfOccupant,
+            toCoOwnership: this.state.coOwnershipId
+        }
+        homeBookService.createHomeBook(newData)
         .then(res =>{
-            observer.trigger(observer.events.notification, {type: 'success', message: "Home Book Created Successfully!"})
+            observer.trigger(observer.events.notification, {type: 'success', message: "Home Book Record Created Successfully!"})
             this.props.history.push('/');
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
@@ -50,11 +59,11 @@ export default class CreateHomeBook extends Component {
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
                         <label htmlFor="toEstate">To Estate:</label>
                             <select name='toEstate' className='form-control'>
-                                {this.state.estates.map((p, i) => <option key={p._id} value={p._id}>Apartment № {p.number}</option>)}
+                                {this.state.estates.map((p, i) => <option key={p._id} value={p._id}>{p.type} № {p.number}</option>)}
                             </select>
 
                             <label htmlFor="typeOfBusiness">Тype:</label>
-                            <select name='typeOfBusiness' className='form-control'>
+                            <select name='typeOfBusines' className='form-control'>
                                 <option value="individual">Individual</option>
                                 <option value="company">Company</option>
                             </select>

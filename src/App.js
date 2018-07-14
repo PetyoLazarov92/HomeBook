@@ -12,6 +12,7 @@ import RegisterPage from './components/user/RegisterPage';
 import CreateCoOwnership from './components/coownerships/CreateCoOwnership';
 import CreateHomeBook from './components/homebook/CreateHomeBook';
 import CreateEstate from './components/estates/CreateEstate';
+import ListHomeBook from './components/homebook/ListHomeBook';
 
 class App extends Component {
   render () {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route path='/create-co-ownership' component={CreateCoOwnership} />
           <Route path='/create-home-book/:id' component={CreateHomeBook} />
           <Route path='/create-estate/:id' component={CreateEstate} />
+          <Route path='/homebook/:id' component={ListHomeBook} />
         </div>
         <Footer />
       </div>

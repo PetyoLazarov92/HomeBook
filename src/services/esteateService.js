@@ -39,7 +39,7 @@ function loadOwnPosts (username) {
 }
 
 function loadPostById (postId) {
-  let endpoint = `posts/${postId}`;
+  let endpoint = `estates/${postId}`;
 
   return requester.get('appdata', endpoint, 'kinvey');
 }
