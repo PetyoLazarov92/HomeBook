@@ -10,6 +10,7 @@ import LoginPage from './components/user/LoginPage';
 import Logout from './components/user/Logout';
 import RegisterPage from './components/user/RegisterPage';
 import CreateCoOwnership from './components/coownerships/CreateCoOwnership';
+import DetailsCoOwnership from './components/coownerships/DetailsCoOwnership';
 import CreateHomeBook from './components/homebook/CreateHomeBook';
 import CreateEstate from './components/estates/CreateEstate';
 import ListHomeBook from './components/homebook/ListHomeBook';
@@ -26,6 +27,8 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/logout' component={Logout} />
           <Route path='/create-co-ownership' component={CreateCoOwnership} />
+          <Route path='/details-co-ownership/:id' component={DetailsCoOwnership} />
+          <Route path='/edit-co-ownership/:id' component={DetailsCoOwnership} />
           <Route path='/create-home-book/:id' component={CreateHomeBook} />
           <Route path='/create-estate/:id' component={CreateEstate} />
           <Route path='/homebook/:id' component={ListHomeBook} />

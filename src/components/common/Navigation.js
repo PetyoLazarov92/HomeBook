@@ -17,11 +17,11 @@ export default class Navigation extends Component {
 
     render = () => {
         let loggedInSection='';
-        if(this.state.username !== ''){
+        if(sessionStorage.getItem('authtoken')){
         loggedInSection = 
         <ul className="navbar-nav ml-auto">
             <li className='nav-item'>
-                <NavLink to='/logout' className="nav-link"><strong>Hello, {this.state.username}!</strong> | Logout</NavLink>
+                <NavLink to='/logout' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong> | Logout</NavLink>
             </li>
         </ul>
         } else {

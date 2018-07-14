@@ -21,7 +21,7 @@ export default class CreateHomeBook extends Component {
         console.log(params.id);
         coOwnership.loadPostById(params.id)
             .then(res => {
-                console.log(res);
+                //console.log(res);
                 this.setState( {coOwnershipName: res.name, coOwnershipId: res._id} );
             })
             esteateService.loadAllEstatesForThisCoOwnership(params.id)
