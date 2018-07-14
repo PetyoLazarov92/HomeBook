@@ -9,7 +9,9 @@ import HomePage from './components/home/HomePage';
 import LoginPage from './components/user/LoginPage';
 import Logout from './components/user/Logout';
 import RegisterPage from './components/user/RegisterPage';
-import CreateCoOwnership from './components/homeBook/CreateCoOwnership';
+import CreateCoOwnership from './components/coownerships/CreateCoOwnership';
+import CreateHomeBook from './components/homebook/CreateHomeBook';
+import CreateEstate from './components/estates/CreateEstate';
 
 class App extends Component {
   render () {
@@ -23,6 +25,8 @@ class App extends Component {
           <Route path='/register' component={RegisterPage} />
           <Route path='/logout' component={Logout} />
           <Route path='/create-co-ownership' component={CreateCoOwnership} />
+          <Route path='/create-home-book' component={CreateHomeBook} />
+          <Route path='/create-estate/:id' component={CreateEstate} />
         </div>
         <Footer />
       </div>

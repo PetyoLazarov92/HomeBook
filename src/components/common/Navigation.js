@@ -54,6 +54,9 @@ export default class Navigation extends Component {
                             <li className="nav-item">
                                 <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink to='/create-home-book' className="nav-link" >Create-Home-Book</NavLink>
+                            </li>
                             {loggedInSection}
                         </ul>
                     </div>

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import BoundForm from '../common/BoundForm';
-import requester from '../../infrastructure/requester';
 import observer from '../../infrastructure/observer';
 import coOwnership from '../../services/coOwnershipService'
 
 export default class CreateCoOwnership extends Component {
     onSubmit = (data, e) => {
-        coOwnership.createPost(data)
+        coOwnership.createCoOwnership(data)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Co-Ownership Created Successfully!"})
             this.props.history.push('/');
@@ -44,6 +43,9 @@ export default class CreateCoOwnership extends Component {
                             <label htmlFor="neighborhood">Neighborhood:</label>
                             <input type="text" className="form-control" name="neighborhood" placeholder="Neighborhood" />
 
+                            <label htmlFor="street">Street / Boulevard:</label>
+                            <input type="text" className="form-control" name="street" placeholder="Street / Boulevard" />
+
                             <label htmlFor="number">Number:</label>
                             <input type="text" className="form-control" name="number" placeholder="Number" />
 
@@ -53,7 +55,7 @@ export default class CreateCoOwnership extends Component {
                             <label htmlFor="entrance">Entrance:</label>
                             <input type="text" className="form-control" name="entrance" placeholder="Entrance" />
                             
-                            <input type='submit' className="btn btn-success mt-2 mb-2" value='Register'/>   
+                            <input type='submit' className="btn btn-success mt-2 mb-2" value='Create'/>   
                         </BoundForm>
                     </div>                     
                 </div>  

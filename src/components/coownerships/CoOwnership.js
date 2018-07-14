@@ -7,10 +7,7 @@ function pluralize(value) {
 }
 
 export default class CoOwnership extends Component {
-  constructor (props) {
-    super(props);
-    console.log(this.props);
-  }
+  
 
   createdBeforeDays = () => {
     let dateIsoFormat = this.props._kmd.ect;
@@ -32,11 +29,14 @@ export default class CoOwnership extends Component {
       return(
         
       <tr>
-        <td>{this.props.name}</td>
+        <td>{this.props.name}
+          <p className='ml-3 row font-italic'>Created before: {this.createdBeforeDays()}</p>
+        </td>
         <td>{this.props.municipality}</td>
         <td>{this.props.city}</td>
         <td>{this.props.postCode}</td>
         <td>
+            <Link to={"/create-estate/"+ this.props._id} className="btn btn-primary btn-rounded btn-sm mx-2">Add Estate</Link>
             <Link to="/" className="btn btn-primary btn-rounded btn-sm mx-2">Details</Link>
             <Link to="/" className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>
             <Link to="/" className="btn btn-danger btn-rounded btn-sm mx-2">Delete</Link>

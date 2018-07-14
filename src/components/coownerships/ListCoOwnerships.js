@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import requester from '../../infrastructure/requester';
-import CoOwnership from '../homeBook/CoOwnership';
+import CoOwnership from '../coownerships/CoOwnership';
 import observer from '../../infrastructure/observer';
+import coOwnership from '../../services/coOwnershipService'
 
 export default class ListCoOwnership extends Component{
     constructor(props) {
@@ -13,7 +13,7 @@ export default class ListCoOwnership extends Component{
     }
 
     getCoOwnerships = () => {
-        requester.get('appdata', 'coOwnerships', 'kinvey')
+        coOwnership.loadAllCoOwnerships()
             .then(res => {
                 console.log(res);
                 this.setState({
@@ -31,7 +31,6 @@ export default class ListCoOwnership extends Component{
         return (
             <div>
                 <h1>OwnerShips</h1>
-                <label htmlFor="role">Co-Ownerships:</label>
                 <table className="table table-striped">
                     <thead>
                       <tr>

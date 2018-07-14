@@ -46,6 +46,9 @@ function stateFromChildren (children) {
     if (child.type === 'select' && child.props.name === 'role') {
       inputs[child.props.name] = 'user';
     }
+    if (child.type === 'select' && child.props.name === 'type') {
+      inputs[child.props.name] = 'apartment';
+    }
   });
 
   return inputs;

@@ -1,15 +1,15 @@
 import requester from '../infrastructure/requester';
 
-function loadAllCoOwnerships () {
-  return requester.get('appdata', 'coOwnerships', 'kinvey');
+function loadAllHomeBooks () {
+  return requester.get('appdata', 'posts', 'kinvey');
 }
 
-function createCoOwnership (data) {
+function createHomeBook (data) {
   let postObj = {
     ...data
   };
 
-  return requester.post('appdata', 'coOwnerships', 'kinvey', postObj);
+  return requester.post('appdata', 'homeBook', 'kinvey', postObj);
 }
 
 function editPost (postId, author, title, description, url, imageUrl) {
@@ -35,14 +35,14 @@ function loadOwnPosts (username) {
 }
 
 function loadPostById (postId) {
-  let endpoint = `coOwnerships/${postId}`;
+  let endpoint = `posts/${postId}`;
 
   return requester.get('appdata', endpoint, 'kinvey');
 }
 
 export default {
-  loadAllCoOwnerships,
-  createCoOwnership,
+  loadAllHomeBooks,
+  createHomeBook,
   editPost,
   deletePost,
   loadOwnPosts,
