@@ -23,7 +23,7 @@ export default class CreateCoOwnership extends Component {
                     <div  className="panel-body" >
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
                             <label htmlFor="name">Name:</label>
-                            <input type="text" className="form-control" name="name" placeholder="Name E.g.: (жк.Мрамор бл.15 вх.А)" />
+                            <input type="text" className="form-control" name="name" placeholder="Name E.g.: (жк.Мрамор бл.15 вх.А)" required/>
 
                             <label htmlFor="area">Area:</label>
                             <input type="text" className="form-control" name="area" placeholder="area" />
@@ -38,7 +38,7 @@ export default class CreateCoOwnership extends Component {
                             <input type="text" className="form-control" name="postCode" placeholder="postal-code" />
 
                             <label htmlFor="city">City / Village:</label>
-                            <input type="text" className="form-control" name="city" placeholder="City / Village" />
+                            <input type="text" className="form-control" name="city" placeholder="City / Village" required/>
 
                             <label htmlFor="neighborhood">Neighborhood:</label>
                             <input type="text" className="form-control" name="neighborhood" placeholder="Neighborhood" />

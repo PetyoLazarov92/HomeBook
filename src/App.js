@@ -24,6 +24,12 @@ import DeleteCoOwnership from './components/coownerships/DeleteCoOwnership';
 
 class App extends Component {
   render () {
+    let createCoOwnershipRoute, createEstateRoute = '';
+    if (sessionStorage.getItem('role') === 'houseManager' || sessionStorage.getItem('role') === 'admin') {
+      createCoOwnershipRoute = <Route path='/create-co-ownership' component={CreateCoOwnership} />;
+      createEstateRoute = <Route path='/create-estate/:id' component={CreateEstate} />;
+    }
+
     return (
       <div>
         <Navigation />
@@ -37,13 +43,13 @@ class App extends Component {
             <Route path='/register' component={RegisterPage} />
             <Route path='/logout' component={Logout} />
             <Route path='/ownerships' component={ListCoOwnership} />
-            <Route path='/create-co-ownership' component={CreateCoOwnership} />
+            {createCoOwnershipRoute}
             <Route path='/details-co-ownership/:id' component={DetailsCoOwnership} />
             <Route path='/edit-co-ownership/:id' component={EditCoOwnership} />
             <Route path='/delete-co-ownership/:id' component={DeleteCoOwnership} />
             <Route path='/create-home-book/:id' component={CreateHomeBook} />
             <Route path='/delete-record/:id' component={DeleteRecordInHB} />
-            <Route path='/create-estate/:id' component={CreateEstate} />
+            {createEstateRoute}
             <Route path='/homebook/:id' component={ListHomeBook} />
             <Route component={NotFound} />
           </Switch>
