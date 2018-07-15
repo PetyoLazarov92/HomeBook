@@ -10,7 +10,7 @@ export default class RegisterPage extends Component {
         } else if(!data.password) {
             observer.trigger(observer.events.notification, {type: 'info', message: 'Password cant be empty!' });
         } else if(data.password !== data.repeatPassword) {
-            observer.trigger(observer.events.notification, {type: 'info', message: 'Passwords dont match!' });
+            observer.trigger(observer.events.notification, {type: 'info', message: 'Passwords do not match!' });
         } else {
             let newUserData = {
                 username: data.username,
@@ -23,6 +23,7 @@ export default class RegisterPage extends Component {
                 observer.trigger(observer.events.loginUser, res.username);
                 sessionStorage.setItem('authtoken', res._kmd.authtoken);
                 sessionStorage.setItem('username', res.username);
+                sessionStorage.setItem('role', res.role);
                 this.props.history.push('/');
               })
               .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));

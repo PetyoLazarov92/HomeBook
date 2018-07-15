@@ -29,7 +29,7 @@ function editPost (postId, author, title, description, url, imageUrl) {
 }
 
 function deletePost (postId) {
-  return requester.remove('appdata', `posts/${postId}`, 'kinvey');
+  return requester.remove('appdata', `homeBook/${postId}`, 'kinvey');
 }
 
 function loadOwnPosts (username) {

@@ -6,15 +6,22 @@ import observer from '../../infrastructure/observer';
 
 export default class LoginPage extends Component {
     onSubmit = (data, e) => {
-        requester.post('user', 'login', 'basic', data)
-            .then(res => {
-                observer.trigger(observer.events.notification, {type: 'success', message: "Login Success!"})
-                observer.trigger(observer.events.loginUser, res.username);
-                sessionStorage.setItem('authtoken', res._kmd.authtoken);
-                sessionStorage.setItem('username', res.username);
-                this.props.history.push('/');
-              })
-              .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+        if(data.username ==='') {
+            observer.trigger(observer.events.notification, {type: 'info', message: 'Username cant be empty!'});
+        } else if(!data.password) {
+            observer.trigger(observer.events.notification, {type: 'info', message: 'Password cant be empty!' });
+        } else{
+            requester.post('user', 'login', 'basic', data)
+                .then(res => {
+                    observer.trigger(observer.events.notification, {type: 'success', message: "Login Success!"})
+                    observer.trigger(observer.events.loginUser, res.username);
+                    sessionStorage.setItem('authtoken', res._kmd.authtoken);
+                    sessionStorage.setItem('username', res.username);
+                    sessionStorage.setItem('role', res.role);
+                    this.props.history.push('/');
+                  })
+                  .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+            }
     }
     render = () => {
         return(

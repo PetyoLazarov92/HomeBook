@@ -8,7 +8,7 @@ export default class CreateCoOwnership extends Component {
         coOwnership.createCoOwnership(data)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Co-Ownership Created Successfully!"})
-            this.props.history.push('/');
+            this.props.history.push('/ownerships');
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }

@@ -19,7 +19,6 @@ export default class ListHomeBook extends Component{
     getHomeBook = (id) => {
         homeBookService.loadHomeBookForThisCoOwnership(id)
             .then(res => {
-                console.log(res);
                 this.setState({
                     homebook: res
                 })
@@ -32,7 +31,6 @@ export default class ListHomeBook extends Component{
         this.getHomeBook(params.id);
         coOwnership.loadPostById(params.id)
             .then(res => {
-                console.log(res);
                 this.setState({
                     coOwnershipName: res.name,
                     coOwnershipId: res._id

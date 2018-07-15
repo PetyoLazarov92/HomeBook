@@ -15,7 +15,6 @@ export default class ListCoOwnership extends Component{
     getCoOwnerships = () => {
         coOwnership.loadAllCoOwnerships()
             .then(res => {
-                console.log(res);
                 this.setState({
                     coOwnerships: res
                 })

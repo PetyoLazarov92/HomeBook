@@ -21,7 +21,7 @@ function editPost (data, id) {
 }
 
 function deletePost (postId) {
-  return requester.remove('appdata', `posts/${postId}`, 'kinvey');
+  return requester.remove('appdata', `coOwnerships/${postId}`, 'kinvey');
 }
 
 function loadOwnPosts (username) {

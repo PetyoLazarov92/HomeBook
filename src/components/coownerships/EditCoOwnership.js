@@ -32,7 +32,7 @@ export default class EditCoOwnership extends Component {
         coOwnership.editPost(this.state.coOwnership, this.state.coOwnership._id)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Co-Ownership Edited Successfully!"})
-            this.props.history.push('/');
+            this.props.history.push('/ownerships');
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }

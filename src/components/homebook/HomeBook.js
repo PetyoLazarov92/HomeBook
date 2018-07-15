@@ -5,7 +5,7 @@ import esteateService from '../../services/esteateService';
 export default class HomeBook extends Component {
     constructor(props){
         super(props);
-
+        
         this.state= {
             estate: {}
         }
@@ -14,7 +14,6 @@ export default class HomeBook extends Component {
     componentDidMount = () => {
         esteateService.loadPostById(this.props.toEstate)
         .then(res => {
-            console.log(res);
             this.setState({
                 estate: res
             })
@@ -22,7 +21,6 @@ export default class HomeBook extends Component {
     }
 
   render = () => {
-      console.log(this.state.estate);
       return(
         
       <tr>
@@ -32,9 +30,8 @@ export default class HomeBook extends Component {
         <td>{this.props.typeOfBusines}</td>
         <td>{this.props.typeOfOccupant}</td>
         <td>
-            <Link to="/" className="btn btn-primary btn-rounded btn-sm mx-2">Details</Link>
             <Link to="/" className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>
-            <Link to="/" className="btn btn-danger btn-rounded btn-sm mx-2">Delete</Link>
+            <Link to={"/delete-record/"+ this.props._id} className="btn btn-danger btn-rounded btn-sm mx-2" params={{ coOwnershipId: this.props.toCoOwnership }}>Delete</Link>
         </td>
       </tr>
     

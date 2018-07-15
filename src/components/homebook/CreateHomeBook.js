@@ -18,10 +18,9 @@ export default class CreateHomeBook extends Component {
 
     componentDidMount() {
         const { match: { params } } = this.props;
-        console.log(params.id);
+        // console.log(params.id);
         coOwnership.loadPostById(params.id)
             .then(res => {
-                //console.log(res);
                 this.setState( {coOwnershipName: res.name, coOwnershipId: res._id} );
             })
             esteateService.loadAllEstatesForThisCoOwnership(params.id)
@@ -42,7 +41,7 @@ export default class CreateHomeBook extends Component {
         homeBookService.createHomeBook(newData)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Home Book Record Created Successfully!"})
-            this.props.history.push('/');
+            this.props.history.push('/homebook/'+ this.state.coOwnershipId);
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
