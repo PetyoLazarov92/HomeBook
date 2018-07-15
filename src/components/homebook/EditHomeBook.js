@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import homeBookService from '../../services/homeBookService'
 import observer from '../../infrastructure/observer';
 import esteateService from '../../services/esteateService';
-import coOwnership from '../../services/coOwnershipService';
-
 
 export default class EditHomeBook extends Component {
     constructor(props){
@@ -33,19 +31,20 @@ export default class EditHomeBook extends Component {
         const { match: { params } } = this.props;
         homeBookService.loadPostById(params.id)
             .then(res => {
-                this.setState({ homeBookRecord: res , toEstateId: res.toEstate});
-            }).then(
-                coOwnership.loadPostById(params.id)
-                    .then(res => {
-                        this.setState( {coOwnershipName: res.name, coOwnershipId: res._id} );
-                    })
-                ).then(
-                    esteateService.loadPostById(this.state.toEstateId)
-                        .then(res => {
-                            this.setState( {estates: res} );
-                        })
-                    )
+                this.setState({ 
+                    homeBookRecord: res , 
+                    toEstateId: res.toEstate,
+                    coOwnershipId: res.toCoOwnership
+                });
+                
+            }).then(res => {
+                esteateService.loadAllEstatesForThisCoOwnership(this.state.coOwnershipId)
+                .then(res => {
+                    this.setState( {estates: res} );
+                })
+            })
         
+                
     }
 
     onSubmit = (e) => {

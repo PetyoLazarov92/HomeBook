@@ -9,7 +9,6 @@ export default class EditCoOwnership extends Component {
         this.state = ({
             coOwnership: {}
         })
-        console.log(props);
     }
 
     onChange = (event) => {
