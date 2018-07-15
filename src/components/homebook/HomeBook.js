@@ -5,7 +5,7 @@ import esteateService from '../../services/esteateService';
 export default class HomeBook extends Component {
     constructor(props){
         super(props);
-        
+
         this.state= {
             estate: {}
         }
@@ -30,7 +30,7 @@ export default class HomeBook extends Component {
         <td>{this.props.typeOfBusines}</td>
         <td>{this.props.typeOfOccupant}</td>
         <td>
-            <Link to="/" className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>
+            <Link to={"/edit-record/"+ this.props._id} className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>
             <Link to={"/delete-record/"+ this.props._id} className="btn btn-danger btn-rounded btn-sm mx-2" params={{ coOwnershipId: this.props.toCoOwnership }}>Delete</Link>
         </td>
       </tr>

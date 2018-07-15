@@ -18,7 +18,6 @@ export default class CreateHomeBook extends Component {
 
     componentDidMount() {
         const { match: { params } } = this.props;
-        // console.log(params.id);
         coOwnership.loadPostById(params.id)
             .then(res => {
                 this.setState( {coOwnershipName: res.name, coOwnershipId: res._id} );

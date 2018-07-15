@@ -16,16 +16,12 @@ function createHomeBook (data) {
   return requester.post('appdata', 'homeBook', 'kinvey', postObj);
 }
 
-function editPost (postId, author, title, description, url, imageUrl) {
+function editPost (data, id) {
   let updatedPostObj = {
-    author,
-    title,
-    description,
-    url,
-    imageUrl
+    ...data
   };
 
-  return requester.update('appdata', `posts/${postId}`, 'kinvey', updatedPostObj);
+  return requester.update('appdata', `homeBook/${id}`, 'kinvey', updatedPostObj);
 }
 
 function deletePost (postId) {

@@ -20,9 +20,6 @@ export default class EditCoOwnership extends Component {
         }
         this.setState(
             {coOwnership: newObj }
-            // (prevState, props) => ({
-            //     coOwnership: prevState.coOwnership + props
-            //   })
         );
     }
 

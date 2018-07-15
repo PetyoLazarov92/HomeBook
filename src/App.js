@@ -21,6 +21,7 @@ import AboutPage from './components/home/AboutPage';
 import NotFound from './components/home/NotFound';
 import DeleteRecordInHB from './components/homebook/DeleteRecordInHomeBook';
 import DeleteCoOwnership from './components/coownerships/DeleteCoOwnership';
+import EditHomeBook from './components/homebook/EditHomeBook';
 
 class App extends Component {
   render () {
@@ -49,6 +50,7 @@ class App extends Component {
             <Route path='/delete-co-ownership/:id' component={DeleteCoOwnership} />
             <Route path='/create-home-book/:id' component={CreateHomeBook} />
             <Route path='/delete-record/:id' component={DeleteRecordInHB} />
+            <Route path='/edit-record/:id' component={EditHomeBook} />
             {createEstateRoute}
             <Route path='/homebook/:id' component={ListHomeBook} />
             <Route component={NotFound} />
