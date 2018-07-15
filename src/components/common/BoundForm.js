@@ -38,7 +38,6 @@ export default class BoundForm extends Component {
 
 function stateFromChildren (children) {
   const inputs = {};
-
   React.Children.forEach(children, child => {
     if (child.type === 'input' && child.props.name) {
       inputs[child.props.name] = '';

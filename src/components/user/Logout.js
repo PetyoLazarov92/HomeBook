@@ -7,10 +7,10 @@ export default class Logout extends Component {
   logout = () => {
     requester.post('user', '_logout', 'kinvey')
       .then(res => {
-            observer.trigger(observer.events.notification, {type: 'success', message: "Logout Success!"});
-            observer.trigger(observer.events.logoutUser);
             sessionStorage.removeItem('authtoken');
             sessionStorage.removeItem('username');
+            observer.trigger(observer.events.notification, {type: 'success', message: "Logout Success!"});
+            observer.trigger(observer.events.logoutUser);            
         }).catch(
         res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
         );
