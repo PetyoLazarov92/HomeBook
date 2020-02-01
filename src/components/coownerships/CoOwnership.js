@@ -11,7 +11,7 @@ export default class CoOwnership extends Component {
 
   createdBeforeDays = () => {
     let dateIsoFormat = this.props._kmd.ect;
-    let diff = new Date - (new Date(dateIsoFormat));
+    let diff = new Date() - (new Date(dateIsoFormat));
     diff = Math.floor(diff / 60000);
     if (diff < 1) return 'less than a minute';
     if (diff < 60) return diff + ' minute' + pluralize(diff);

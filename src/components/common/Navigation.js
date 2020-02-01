@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import observer from '../../infrastructure/observer';
 import {NavLink} from 'react-router-dom';
+import { Navbar, Nav } from 'react-bootstrap';
 
 export default class Navigation extends Component {
     constructor(props) {
@@ -18,61 +19,40 @@ export default class Navigation extends Component {
     render = () => {
         let loggedInSection='';
         if(sessionStorage.getItem('authtoken')){
-        loggedInSection = 
-        <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-                <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>
-            </li>
-            <li className='nav-item'>
-                <NavLink to='/home' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong> | </NavLink>
-            </li>
-            <li className='nav-item'>
-                <NavLink to='/logout' className="nav-link">Logout</NavLink>
-            </li>
-        </ul>
+        loggedInSection =
+            <div className="navbar-nav mr-auto">
+                <Nav.Link href="/ownerships">Ownerships</Nav.Link>
+                <Nav.Link href="/home"><strong>Hello, {sessionStorage.getItem('username')}!</strong></Nav.Link>
+                <Nav.Link href="/logout" className="text-danger">Logout</Nav.Link>
+            </div>
         } else {
-            loggedInSection =
-            <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-                <NavLink to='/register' className="nav-link" >Register</NavLink>
-            </li>
-            <li className="nav-item">
-                <NavLink to='/login' className="nav-link" >Login</NavLink>
-            </li>
-            </ul>
+            loggedInSection = 
+                <div className="navbar-nav mr-auto">
+                    <Nav.Link href="/register">Register</Nav.Link>
+                    <Nav.Link href="/login">login</Nav.Link>
+                </div>
         }
 
         let isInRole='';
         if(sessionStorage.getItem('role') === 'houseManager' || sessionStorage.getItem('role') === 'admin'){
-            isInRole = 
-        <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-                <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>
-            </li>
-        </ul>
+            isInRole = <Nav.Link href="/create-co-ownership">Create-Co-Ownership</Nav.Link>
         }
 
         return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <Navbar fixed="top" bg="light" expand="lg">
                 <div className="container">
-                    <NavLink to='/' className="navbar-brand" >HomeBook</NavLink>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarResponsive">
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <NavLink to='/' className="nav-link" >Home</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to='/about' className="nav-link" >About</NavLink>
-                            </li>
+                    <Navbar.Brand href="/">Home Book</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ml-auto">
+                            <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/about">About</Nav.Link>
                             {isInRole}
                             {loggedInSection}
-                        </ul>
-                    </div>
+                        </Nav>
+                    </Navbar.Collapse>
                 </div>
-            </nav>
+            </Navbar>
         )
     }
 }

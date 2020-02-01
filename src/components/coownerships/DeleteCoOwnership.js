@@ -16,11 +16,14 @@ export default class DeleteCoOwnership extends Component {
             .then(res => {
                 if(alertFunc()){
                     coOwnership.deletePost(res._id)
-                    .then(res =>{
+                    .then(res => {
                         observer.trigger(observer.events.notification, {type: 'success', message: "OwnerShip Deleted Successfully!"});
                         this.props.history.push('/ownerships');
                     })
-                    .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+                    .catch(res => {
+                        observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description });
+                        this.props.history.push('/ownerships');
+                    });
                 } else {
                     observer.trigger(observer.events.notification, {type: 'info', message: "You cancelled deleting OwnerShip!"});
                     this.props.history.push('/ownerships');
