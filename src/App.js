@@ -37,9 +37,9 @@ class App extends Component {
         <Notification />
         <div className='container'>
           <Switch>
-            <Route path='/' exact component={HomePage} />
-            <Route path='/home' exact component={HomePage} />
-            <Route path='/about' exact component={AboutPage} />
+            <Route exact path='/' component={HomePage} />
+            <Route exact path='/home' component={HomePage} />
+            <Route exact path='/about' component={AboutPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/logout' component={Logout} />

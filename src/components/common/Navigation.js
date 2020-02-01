@@ -21,21 +21,21 @@ export default class Navigation extends Component {
         if(sessionStorage.getItem('authtoken')){
         loggedInSection =
             <div className="navbar-nav mr-auto">
-                <Nav.Link href="/ownerships">Ownerships</Nav.Link>
-                <Nav.Link href="/home"><strong>Hello, {sessionStorage.getItem('username')}!</strong></Nav.Link>
-                <Nav.Link href="/logout" className="text-danger">Logout</Nav.Link>
+                <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>
+                <NavLink to='/home' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong></NavLink>
+                <NavLink to='/logout' className="nav-link text-danger">Logout</NavLink>
             </div>
         } else {
             loggedInSection = 
                 <div className="navbar-nav mr-auto">
-                    <Nav.Link href="/register">Register</Nav.Link>
-                    <Nav.Link href="/login">login</Nav.Link>
+                    <NavLink to='/register' className="nav-link" >Register</NavLink>
+                    <NavLink to='/login' className="nav-link" >Login</NavLink>
                 </div>
         }
 
         let isInRole='';
         if(sessionStorage.getItem('role') === 'houseManager' || sessionStorage.getItem('role') === 'admin'){
-            isInRole = <Nav.Link href="/create-co-ownership">Create-Co-Ownership</Nav.Link>
+            isInRole = <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>
         }
 
         return(
@@ -45,8 +45,8 @@ export default class Navigation extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/about">About</Nav.Link>
+                            <NavLink exact to='/' className="nav-link" >Home</NavLink>
+                            <NavLink to='/about' className="nav-link" >About</NavLink>
                             {isInRole}
                             {loggedInSection}
                         </Nav>
