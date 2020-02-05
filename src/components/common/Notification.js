@@ -3,9 +3,8 @@ import observer from '../../infrastructure/observer';
 
 const DEFAULT_STATE = {
     message: null,
-    success: null,
-    error: null,
-    info: null
+    typeOfMessage: null,
+    notificationClass: null
 }
 
 export default class Notification extends Component {
@@ -18,30 +17,30 @@ export default class Notification extends Component {
 
     showNotification = data => {
         let message= data.message;
-        let type = data.type;
-        this.setState({ [type]: type, message: message });
+        this.setState({ message: message });
+        switch (data.type) {
+            case 'success':
+                this.setState({ typeOfMessage: 'Success!', notificationClass: 'alert alert-success' });
+                break;
+            case 'info':
+                this.setState({ typeOfMessage: 'Info!', notificationClass: 'alert alert-info' });
+                break;
+            case 'error':
+                this.setState({ typeOfMessage: 'Error!', notificationClass: 'alert alert-danger' });
+                break;
+            default:
+                this.setState(DEFAULT_STATE);
+                break;
+        }
     }
 
     hideNotification = ev => this.setState(DEFAULT_STATE);
 
     render = () => {
-        let notificationClass;
-        let typeOfMessage;
-        if (this.state.success) {
-            typeOfMessage = 'Success!'
-            notificationClass = 'alert alert-success';
-        } else if (this.state.error) {
-            typeOfMessage = 'Error!'
-            notificationClass = 'alert alert-danger';
-        } else if (this.state.info) {
-            typeOfMessage = 'Info!'
-            notificationClass = 'alert alert-info';
-        }
-
         if (this.state.message) {
             return (
-                <div className={notificationClass} onClick={this.hideNotification}>
-                    <p><strong>{typeOfMessage} </strong>{this.state.message}</p>
+                <div className={this.state.notificationClass} onClick={this.hideNotification}>
+                    <p className="container mb-0"><strong>{this.state.typeOfMessage} </strong>{this.state.message}</p>
                 </div>)
         } else {
             return null;

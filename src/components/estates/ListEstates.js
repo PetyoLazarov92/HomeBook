@@ -4,12 +4,14 @@ import Estate from '../estates/Estate';
 import observer from '../../infrastructure/observer';
 import estates from '../../services/esteateService';
 import coOwnership from '../../services/coOwnershipService';
+import Loading from '../common/loader/Loading';
 
 export default class ListEstates extends Component{
     constructor(props) {
         super(props);
 
         this.state = {
+            ready: false,
             estates : [],
             coOwnership: {}
         }
@@ -26,7 +28,8 @@ export default class ListEstates extends Component{
                     })
                 })
                 this.setState({
-                    estates: res
+                    estates: res,
+                    ready: true
                 })
             })
             .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
@@ -43,6 +46,7 @@ export default class ListEstates extends Component{
                 {console.dir(this.state.coOwnership)}
                 <h1>Estates in <span className='font-italic text-primary'>{this.state.coOwnership.name}</span></h1>
                 <Link to={"/create-estate/"+ this.state.coOwnership._id} className="btn btn-primary btn-rounded btn-sm mx-2 mb-3">Add Estate</Link>
+                {this.state.ready ? (
                 <table className="table table-striped">
                     <thead>
                       <tr>
@@ -58,6 +62,9 @@ export default class ListEstates extends Component{
                         {this.state.estates.map((p, i) => <Estate key={p._id} index={i} {...p} />)}
                     </tbody>
                 </table>
+                ) : (
+                    <Loading />
+                )}
             </div>
         )
     }

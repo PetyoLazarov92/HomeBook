@@ -3,14 +3,25 @@ import {Link} from 'react-router-dom';
 import BoundForm from '../common/BoundForm';
 import requester from '../../infrastructure/requester';
 import observer from '../../infrastructure/observer';
+import Loading from '../common/loader/Loading';
 
 export default class LoginPage extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            ready: true
+        }
+    }
     onSubmit = (data, e) => {
         if(data.username ==='') {
             observer.trigger(observer.events.notification, {type: 'info', message: 'Username cant be empty!'});
         } else if(!data.password) {
             observer.trigger(observer.events.notification, {type: 'info', message: 'Password cant be empty!' });
         } else{
+            this.setState({
+                ready: false
+            })
             requester.post('user', 'login', 'basic', data)
                 .then(res => {
                     observer.trigger(observer.events.notification, {type: 'success', message: "Login Success!"})
@@ -19,8 +30,16 @@ export default class LoginPage extends Component {
                     sessionStorage.setItem('username', res.username);
                     sessionStorage.setItem('role', res.role);
                     this.props.history.push('/');
-                  })
-                  .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+                    this.setState({
+                        ready: true
+                    })
+                })
+                .catch(res => {
+                    this.setState({
+                        ready: true
+                    })
+                    observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
+                });
             }
     }
     render = () => {
@@ -30,7 +49,7 @@ export default class LoginPage extends Component {
                     <div className="heading">
                         <h1 className="title">Sign In</h1>
                     </div>     
-
+                    {this.state.ready ? (
                     <div  className="panel-body" >
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
                             <label htmlFor="username">Username:</label>
@@ -50,7 +69,10 @@ export default class LoginPage extends Component {
                                 </div>
                             </div>    
                         </BoundForm>
-                    </div>                     
+                    </div>
+                    ) : (
+                        <Loading />
+                    )}                   
                 </div>  
             </div>
         )

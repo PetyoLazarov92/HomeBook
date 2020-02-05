@@ -4,12 +4,14 @@ import HomeBook from './HomeBook';
 import observer from '../../infrastructure/observer';
 import homeBookService from '../../services/homeBookService'
 import coOwnership from '../../services/coOwnershipService';
+import Loading from '../common/loader/Loading';
 
-export default class ListHomeBook extends Component{
+export default class ListHomeBook extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            ready: false,
             homebook : [],
             coOwnershipName: '',
             coOwnershipId:''
@@ -20,7 +22,8 @@ export default class ListHomeBook extends Component{
         homeBookService.loadHomeBookForThisCoOwnership(id)
             .then(res => {
                 this.setState({
-                    homebook: res
+                    homebook: res,
+                    ready: true
                 })
             })
             .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
@@ -43,21 +46,25 @@ export default class ListHomeBook extends Component{
             <div>
                 <h2>Home Book for <span className='font-italic text-primary'>{this.state.coOwnershipName}</span></h2>
                 <Link to={"/create-home-book/"+ this.state.coOwnershipId} className="btn btn-primary btn-rounded btn-sm mx-2 mb-3">Add Record</Link>
-                <table className="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Names</th>
-                        <th>To Estate</th>
-                        <th>Starting Date</th>
-                        <th>Type Of Busines</th>
-                        <th>Type Of Occupant</th>
-                        <th>Controls</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.homebook.map((p, i) => <HomeBook key={p._id} index={i} coOwnershipId={this.state.coOwnershipId} {...p} />)}
-                    </tbody>
-                </table>
+                {this.state.ready ? (
+                    <table className="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Names</th>
+                            <th>To Estate</th>
+                            <th>Starting Date</th>
+                            <th>Type Of Busines</th>
+                            <th>Type Of Occupant</th>
+                            <th>Controls</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.homebook.map((p, i) => <HomeBook key={p._id} index={i} coOwnershipId={this.state.coOwnershipId} {...p} />)}
+                        </tbody>
+                    </table>
+                ) : (
+                    <Loading />
+                )}
             </div>
         )
     }
