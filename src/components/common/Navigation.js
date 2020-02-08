@@ -22,7 +22,7 @@ export default class Navigation extends Component {
         loggedInSection =
             <div className="navbar-nav mr-auto">
                 <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>
-                <NavLink to='/home' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong></NavLink>
+                <NavLink to='/home' className="nav-link"><strong>Hello, {this.state.username}!</strong></NavLink>
                 <NavLink to='/logout' className="nav-link text-danger">Logout</NavLink>
             </div>
         } else {
