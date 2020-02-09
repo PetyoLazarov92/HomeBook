@@ -74,10 +74,9 @@ export default class AdminPanel extends Component {
                 <h1 className="title">Admin panel</h1>
                 <hr/>
             </div>
-                <h2 className="title d-inline-block col-6 pl-0">Current user roles</h2>
-                <h2 className="title d-inline-block col-6">Assign role to user</h2>
-            <div className="d-flex">
-                <div className="col-6 pl-0">
+            <div className="d-flex flex-column flex-md-row">
+                <div className="col-12 col-md-6 pl-0">
+                <h2 className="title d-inline-block pl-md-0">Current user roles</h2>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -94,7 +93,8 @@ export default class AdminPanel extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="col-6 pr-0">
+                <div className="col-12 col-md-6 pr-md-0">
+                <h2 className="title">Assign role to user</h2>
                     <hr className="mt-0"/>
                     <BoundForm onSubmit={this.onSubmitAssign} className="form-horizontal">
                         <label htmlFor="user">User:</label>
