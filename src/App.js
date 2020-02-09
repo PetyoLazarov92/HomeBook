@@ -26,6 +26,7 @@ import ListEstates from './components/estates/ListEstates';
 import EditEstae from './components/estates/EditEstate';
 import DeleteEstate from './components/estates/DeleteEstate';
 import AdminPanel from './components/admin/AdminPanel';
+import { withAdminAuthorization } from './utils/withAuthorization';
 
 class App extends Component {
   render () {
@@ -39,7 +40,7 @@ class App extends Component {
       <div>
         <Navigation />
         <Notification />
-        <div className='container'>
+        <div className='container mb-5 pb-3'>
           <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/home' component={HomePage} />

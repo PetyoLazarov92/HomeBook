@@ -29,6 +29,7 @@ export default class LoginPage extends Component {
                     sessionStorage.setItem('authtoken', res._kmd.authtoken);
                     sessionStorage.setItem('username', res.username);
                     sessionStorage.setItem('role', res.role);
+                    sessionStorage.setItem('roles', res._kmd.roles.map(r => r.roleId))
                     this.props.history.push('/');
                     this.setState({
                         ready: true

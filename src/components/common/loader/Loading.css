@@ -1,8 +1,9 @@
 .cssload-loader {
 	position: relative;
-	left: calc(50% - 188px);
-	width: 376px;
-	height: 376px;
+	left: calc(50% - 100px);
+	width: 200px;
+	height: 200px;
+	margin-top: 6rem;
 	border-radius: 50%;
 		-o-border-radius: 50%;
 		-ms-border-radius: 50%;
