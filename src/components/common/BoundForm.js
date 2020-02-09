@@ -42,9 +42,9 @@ function stateFromChildren (children) {
     if (child.type === 'input' && child.props.name) {
       inputs[child.props.name] = '';
     }
-    if (child.type === 'select' && child.props.name === 'role') {
-      inputs[child.props.name] = 'user';
-    }
+    // if (child.type === 'select' && child.props.name === 'role') {
+    //   inputs[child.props.name] = 'user';
+    // }
     if (child.type === 'select' && child.props.name === 'type') {
       inputs[child.props.name] = 'apartment';
     }

@@ -3,9 +3,11 @@ import $ from 'jquery';
 const kinveyBaseUrl = 'https://baas.kinvey.com/';
 const kinveyAppKey = 'kid_ryW4ZUHmm';
 const kinveyAppSecret = 'e3143407c0224dc299fd3fabfaee4c1b';
+const kinveyMasterSecret = '6b2dfd1b26d64a41932055d3f84f8ae5';
 
 // Creates the authentication header
 function makeAuth (type) {
+  if (type === 'master') return 'Basic ' + btoa(kinveyAppKey + ':' + kinveyMasterSecret);
   return type === 'basic'
     ? 'Basic ' + btoa(kinveyAppKey + ':' + kinveyAppSecret)
     : 'Kinvey ' + sessionStorage.getItem('authtoken');

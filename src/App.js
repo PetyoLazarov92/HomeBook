@@ -25,6 +25,7 @@ import EditHomeBook from './components/homebook/EditHomeBook';
 import ListEstates from './components/estates/ListEstates';
 import EditEstae from './components/estates/EditEstate';
 import DeleteEstate from './components/estates/DeleteEstate';
+import AdminPanel from './components/admin/AdminPanel';
 
 class App extends Component {
   render () {
@@ -46,6 +47,7 @@ class App extends Component {
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/logout' component={Logout} />
+            <Route path='/admin-panel' component={AdminPanel} />
             <Route path='/ownerships' component={ListCoOwnership} />
             <Route path='/estates/:id' component={ListEstates} />
             {createCoOwnershipRoute}

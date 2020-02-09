@@ -22,7 +22,7 @@ export default class CreateHomeBook extends Component {
             .then(res => {
                 this.setState( {coOwnershipName: res.name, coOwnershipId: res._id} );
             })
-            esteateService.loadAllEstatesForThisCoOwnership(params.id)
+        esteateService.loadAllEstatesForThisCoOwnership(params.id)
             .then(res => {
                 this.setState( {estates: res} );
             })
@@ -55,7 +55,7 @@ export default class CreateHomeBook extends Component {
 
                     <div  className="panel-body" >
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
-                        <label htmlFor="toEstate">To Estate:</label>
+                            <label htmlFor="toEstate">To Estate:</label>
                             <select name='toEstate' className='form-control'>
                                 {this.state.estates.map((p, i) => <option key={p._id} value={p._id}>{p.type} № {p.number}</option>)}
                             </select>
