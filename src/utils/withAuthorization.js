@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import observer from '../infrastructure/observer';
 import userManageService from '../services/userManageService';
 import Loading from '../components/common/loader/Loading';
+import { Link } from 'react-router-dom';
 
-function withAuthorization (Component, targetRoles) {
+function withAuthorization (TargetComponent, targetRoles) {
 	return class WithAuthorization extends Component {
 		constructor(props) {
 			super(props);
@@ -29,7 +30,6 @@ function withAuthorization (Component, targetRoles) {
 						
 				})
 				.then( res => {
-					console.log(this.state.availableRoles)
 					let rolesAsNames = this.state.availableRoles.filter(element => this.state.roles.indexOf(element._id) !== -1);
 					rolesAsNames = rolesAsNames.map(e => e.name);
 					this.setState({rolesAsNames})
@@ -37,28 +37,39 @@ function withAuthorization (Component, targetRoles) {
 						ready: true
 					})
 				})
-				.catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+				.catch(res =>  {
+					this.setState({
+						ready: true
+					})
+					observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
+				});
 		}
 
 		render = () => {
+			let loggedIn = sessionStorage.getItem('authtoken');
 			let userHasAccess = false;
 			for (let role of targetRoles) {
 				userHasAccess = userHasAccess || this.state.rolesAsNames.indexOf(role) !== -1;
 			}
 
 			if(userHasAccess){
-				return <Component {...this.props} />
+				return <TargetComponent {...this.props} />
 			} else {
-				return (this.state.ready ? <h1>Unauthorized</h1> : <Loading />)
+				return (this.state.ready ? loggedIn ? <h1>You do not have permission to access this page!</h1> : <h1>You are not logged in! <Link to='/login'>Sign in</Link> or <Link to="/register">sign up</Link>.</h1> : <Loading />)
 			}
 		}
 	}
 	
 }
 
-export function withAdminAuthorization(Component) {
-	return withAuthorization(Component, ['admin']);
+export default withAuthorization;
+
+export function withAdminAuthorization(TargetComponent) {
+	return withAuthorization(TargetComponent, ['admin']);
 }
-export function withHomeManagerAuthorization(Component) {
-	return withAuthorization(Component, ['houseManager', 'admin']);
+export function withHomeManagerAuthorization(TargetComponent) {
+	return withAuthorization(TargetComponent, ['houseManager', 'admin']);
+}
+export function withUserAuthorization(TargetComponent) {
+	return withAuthorization(TargetComponent, ['user', 'admin', 'houseManager']);
 }

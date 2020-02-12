@@ -1,42 +1,13 @@
 import React, {Component} from 'react';
-import observer from '../../infrastructure/observer';
 import {NavLink} from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
 export default class Navigation extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { username: '' };
-
-        observer.subscribe(observer.events.loginUser, this.userLoggedIn);
-        observer.subscribe(observer.events.logoutUser, this.userLogout);
-    }
-
-    userLogout = () => this.setState({ username: '' });
-
-    userLoggedIn = username => this.setState({ username });
-
     render = () => {
-        let loggedInSection='';
-        if(sessionStorage.getItem('authtoken')){
-        loggedInSection =
-            <div className="navbar-nav mr-auto">
-                <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>
-                <NavLink to='/home' className="nav-link"><strong>Hello, {this.state.username}!</strong></NavLink>
-                <NavLink to='/logout' className="nav-link text-danger">Logout</NavLink>
-            </div>
-        } else {
-            loggedInSection = 
-                <div className="navbar-nav mr-auto">
-                    <NavLink to='/register' className="nav-link" >Register</NavLink>
-                    <NavLink to='/login' className="nav-link" >Login</NavLink>
-                </div>
-        }
-
-        let isInRole='';
-        if(sessionStorage.getItem('role') === 'houseManager' || sessionStorage.getItem('role') === 'admin'){
-            isInRole = <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>
-        }
+        let loggedIn = sessionStorage.getItem('authtoken');
+        let userName = this.props.username;
+        let houseManagerAccess = this.props.userRoles.indexOf('admin') !== -1 || this.props.userRoles.indexOf('houseManager') !== -1;
+        let adminAccess = this.props.userRoles.indexOf('admin') !== -1;
 
         return(
             <Navbar fixed="top" bg="light" expand="lg">
@@ -47,8 +18,13 @@ export default class Navigation extends Component {
                         <Nav className="ml-auto">
                             <NavLink exact to='/' className="nav-link" >Home</NavLink>
                             <NavLink to='/about' className="nav-link" >About</NavLink>
-                            {isInRole}
-                            {loggedInSection}
+                            {adminAccess && <NavLink to='/admin-panel' className="nav-link" >Admin Panel</NavLink>}
+                            {houseManagerAccess && <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>}
+                            {loggedIn && <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>}
+                            {loggedIn && <NavLink to='/home' className="nav-link"><strong>Hello, {userName}!</strong></NavLink>}
+                            {loggedIn && <NavLink to='/logout' className="nav-link text-danger">Logout</NavLink>}
+                            {!loggedIn && <NavLink to='/register' className="nav-link" >Register</NavLink>}
+                            {!loggedIn && <NavLink to='/login' className="nav-link" >Login</NavLink>}
                         </Nav>
                     </Navbar.Collapse>
                 </div>

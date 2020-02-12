@@ -4,6 +4,8 @@ import BoundForm from '../common/BoundForm';
 import requester from '../../infrastructure/requester';
 import observer from '../../infrastructure/observer';
 import Loading from '../common/loader/Loading';
+import userManageService from '../../services/userManageService';
+import userRoles from '../../utils/userRoles';
 
 export default class LoginPage extends Component {
     constructor(props) {
@@ -22,14 +24,14 @@ export default class LoginPage extends Component {
             this.setState({
                 ready: false
             })
-            requester.post('user', 'login', 'basic', data)
+            Promise.all([requester.post('user', 'login', 'basic', data), userManageService.loadUsersRoles()])
                 .then(res => {
                     observer.trigger(observer.events.notification, {type: 'success', message: "Login Success!"})
-                    observer.trigger(observer.events.loginUser, res.username);
-                    sessionStorage.setItem('authtoken', res._kmd.authtoken);
-                    sessionStorage.setItem('username', res.username);
-                    sessionStorage.setItem('role', res.role);
-                    sessionStorage.setItem('roles', res._kmd.roles.map(r => r.roleId))
+                    observer.trigger(observer.events.loginUser, [res[0].username, userRoles(res[0], res[1])]);
+                    sessionStorage.setItem('authtoken', res[0]._kmd.authtoken);
+                    sessionStorage.setItem('username', res[0].username);
+                    sessionStorage.setItem('role', res[0].role);
+                    sessionStorage.setItem('roles', res[0]._kmd.roles.map(r => r.roleId))
                     this.props.history.push('/');
                     this.setState({
                         ready: true

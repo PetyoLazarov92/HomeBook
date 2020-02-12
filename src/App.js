@@ -26,19 +26,37 @@ import ListEstates from './components/estates/ListEstates';
 import EditEstae from './components/estates/EditEstate';
 import DeleteEstate from './components/estates/DeleteEstate';
 import AdminPanel from './components/admin/AdminPanel';
-import { withAdminAuthorization } from './utils/withAuthorization';
+import { withAdminAuthorization, withUserAuthorization, withHomeManagerAuthorization } from './utils/withAuthorization';
+import observer from './infrastructure/observer';
 
 class App extends Component {
-  render () {
-    let createCoOwnershipRoute, createEstateRoute = '';
-    if (sessionStorage.getItem('role') === 'houseManager' || sessionStorage.getItem('role') === 'admin') {
-      createCoOwnershipRoute = <Route path='/create-co-ownership' component={CreateCoOwnership} />;
-      createEstateRoute = <Route path='/create-estate/:id' component={CreateEstate} />;
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+        username: '',
+        userRoles: []
+    };
+    observer.subscribe(observer.events.loginUser, this.userLoggedIn);
+    observer.subscribe(observer.events.logoutUser, this.userLogout);
+  }
 
+  userLogout = () => {
+      this.setState({ 
+          username: '',
+          userRoles: []
+      });
+  }
+
+  userLoggedIn = (data) => {
+      this.setState({
+          username: data[0],
+          userRoles: data[1]
+      });
+  }
+  render () {
     return (
       <div>
-        <Navigation />
+        <Navigation {...this.state} />
         <Notification />
         <div className='container mb-5 pb-3'>
           <Switch>
@@ -48,11 +66,11 @@ class App extends Component {
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/logout' component={Logout} />
-            <Route path='/admin-panel' component={AdminPanel} />
-            <Route path='/ownerships' component={ListCoOwnership} />
+            <Route path='/admin-panel' component={ withAdminAuthorization(AdminPanel)} />
+            <Route path='/ownerships' component={withUserAuthorization(ListCoOwnership)} />
             <Route path='/estates/:id' component={ListEstates} />
-            {createCoOwnershipRoute}
-            <Route path='/details-co-ownership/:id' component={DetailsCoOwnership} />
+            <Route path='/create-co-ownership' component={withHomeManagerAuthorization(CreateCoOwnership)} />
+            <Route path='/details-co-ownership/:id' component={withUserAuthorization(DetailsCoOwnership)} />
             <Route path='/edit-co-ownership/:id' component={EditCoOwnership} />
             <Route path='/delete-co-ownership/:id' component={DeleteCoOwnership} />
             <Route path='/create-home-book/:id' component={CreateHomeBook} />
@@ -60,7 +78,7 @@ class App extends Component {
             <Route path='/edit-record/:id' component={EditHomeBook} />
             <Route path='/delete-estate/:id' component={DeleteEstate} />
             <Route path='/edit-estate/:id' component={EditEstae} />
-            {createEstateRoute}
+            <Route path='/create-estate/:id' component={CreateEstate} />
             <Route path='/homebook/:id' component={ListHomeBook} />
             <Route component={NotFound} />
           </Switch>
