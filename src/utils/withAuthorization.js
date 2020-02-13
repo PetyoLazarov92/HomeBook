@@ -51,11 +51,22 @@ function withAuthorization (TargetComponent, targetRoles) {
 			for (let role of targetRoles) {
 				userHasAccess = userHasAccess || this.state.rolesAsNames.indexOf(role) !== -1;
 			}
-
+			console.log( );
 			if(userHasAccess){
 				return <TargetComponent {...this.props} />
 			} else {
-				return (this.state.ready ? loggedIn ? <h1>You do not have permission to access this page!</h1> : <h1>You are not logged in! <Link to='/login'>Sign in</Link> or <Link to="/register">sign up</Link>.</h1> : <Loading />)
+				if( this.state.ready ){
+					if(loggedIn){
+						observer.trigger(observer.events.notification, {type: 'error', message: "You do not have permission to access this page!"});
+						this.props.history.push('/');
+						return null
+					} else {
+					observer.trigger(observer.events.notification, {type: 'error', message: 'You are not logged in!.'});
+						this.props.history.push('/');
+						return null
+					}
+				} else {return <Loading />}
+				
 			}
 		}
 	}
