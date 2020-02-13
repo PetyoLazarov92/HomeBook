@@ -11,6 +11,27 @@ body {
   content: ", ";
 }
 
+.toast {
+  min-width: 250px;
+}
+
+.toast:first-child {
+  margin-top: 0.75rem;
+}
+
+.notification-type {
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.close,
+.close:focus,
+input[type="button"]:focus {
+  outline: none;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
