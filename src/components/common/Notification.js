@@ -44,6 +44,7 @@ export default class Notification extends Component {
                   position: 'fixed',
                   top: 56,
                   right: 12,
+                  zIndex: 999,
                 }}
               >
                 <Toast onClose={this.hideNotification} delay={10000} autohide>
