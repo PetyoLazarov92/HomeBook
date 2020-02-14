@@ -7,6 +7,8 @@ export default class RegisterPage extends Component {
     onSubmit = (data, e) => {
         if(data.username ==='') {
             observer.trigger(observer.events.notification, {type: 'info', message: 'Username cant be empty!'});
+        } else if(!data.role || 'empty' === data.role) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a role!' })
         } else if(!data.password) {
             observer.trigger(observer.events.notification, {type: 'info', message: 'Password cant be empty!' });
         } else if(data.password !== data.repeatPassword) {
@@ -44,6 +46,7 @@ export default class RegisterPage extends Component {
 
                             <label htmlFor="role">User Role:</label>
                             <select name='role' className='form-control'>
+                                <option value="empty">- Select role -</option>
                                 <option value="user">User</option>
                                 <option value="houseManager">House Manager</option>
                             </select>
