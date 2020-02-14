@@ -26,6 +26,7 @@ export default class RegisterPage extends Component {
                 sessionStorage.setItem('authtoken', res._kmd.authtoken);
                 sessionStorage.setItem('username', res.username);
                 sessionStorage.setItem('role', res.role);
+                sessionStorage.setItem('roles', res._kmd.roles.map(r => r.roleId))
                 this.props.history.push('/');
               })
               .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
