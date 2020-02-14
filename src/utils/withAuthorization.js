@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import observer from '../infrastructure/observer';
 import userManageService from '../services/userManageService';
 import Loading from '../components/common/loader/Loading';
-import { Link } from 'react-router-dom';
 
 function withAuthorization (TargetComponent, targetRoles) {
 	return class WithAuthorization extends Component {

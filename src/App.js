@@ -27,36 +27,12 @@ import EditEstae from './components/estates/EditEstate';
 import DeleteEstate from './components/estates/DeleteEstate';
 import AdminPanel from './components/admin/AdminPanel';
 import { withAdminAuthorization, withUserAuthorization, withHomeManagerAuthorization } from './utils/withAuthorization';
-import observer from './infrastructure/observer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        username: '',
-        userRoles: []
-    };
-    observer.subscribe(observer.events.loginUser, this.userLoggedIn);
-    observer.subscribe(observer.events.logoutUser, this.userLogout);
-  }
-
-  userLogout = () => {
-      this.setState({ 
-          username: '',
-          userRoles: []
-      });
-  }
-
-  userLoggedIn = (data) => {
-      this.setState({
-          username: data[0],
-          userRoles: data[1]
-      });
-  }
   render () {
     return (
       <div>
-        <Navigation {...this.state} />
+        <Navigation />
         <Notification />
         <div className='container mb-5 pb-3'>
           <Switch>
