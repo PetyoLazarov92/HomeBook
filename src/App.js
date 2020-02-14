@@ -47,15 +47,15 @@ class App extends Component {
             <Route path='/estates/:id' component={ListEstates} />
             <Route path='/create-co-ownership' component={withHomeManagerAuthorization(CreateCoOwnership)} />
             <Route path='/details-co-ownership/:id' component={withUserAuthorization(DetailsCoOwnership)} />
-            <Route path='/edit-co-ownership/:id' component={EditCoOwnership} />
-            <Route path='/delete-co-ownership/:id' component={DeleteCoOwnership} />
-            <Route path='/create-home-book/:id' component={CreateHomeBook} />
-            <Route path='/delete-record/:id' component={DeleteRecordInHB} />
-            <Route path='/edit-record/:id' component={EditHomeBook} />
-            <Route path='/delete-estate/:id' component={DeleteEstate} />
-            <Route path='/edit-estate/:id' component={EditEstae} />
-            <Route path='/create-estate/:id' component={CreateEstate} />
-            <Route path='/homebook/:id' component={ListHomeBook} />
+            <Route path='/edit-co-ownership/:id' component={withHomeManagerAuthorization(EditCoOwnership)} />
+            <Route path='/delete-co-ownership/:id' component={withHomeManagerAuthorization(DeleteCoOwnership)} />
+            <Route path='/create-home-book/:id' component={withHomeManagerAuthorization(CreateHomeBook)} />
+            <Route path='/delete-record/:id' component={withHomeManagerAuthorization(DeleteRecordInHB)} />
+            <Route path='/edit-record/:id' component={withHomeManagerAuthorization(EditHomeBook)} />
+            <Route path='/delete-estate/:id' component={withHomeManagerAuthorization(DeleteEstate)} />
+            <Route path='/edit-estate/:id' component={withHomeManagerAuthorization(EditEstae)} />
+            <Route path='/create-estate/:id' component={withHomeManagerAuthorization(CreateEstate)} />
+            <Route path='/homebook/:id' component={withUserAuthorization(ListHomeBook)} />
             <Route component={NotFound} />
           </Switch>
         </div>
