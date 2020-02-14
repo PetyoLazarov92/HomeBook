@@ -29,13 +29,13 @@ export default class AdminPanel extends Component {
     }
     onSubmitAssign = (data) => {
         if (Object.keys(data).length === 0 && data.constructor === Object) {
-            return observer.trigger(observer.events.notification, {type: 'error', message: 'You have not selected an option from the drop-down menu!' })
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You have not selected an option from the drop-down menu!' })
         }
         if(!data.user || 'empty' === data.user) {
-            return observer.trigger(observer.events.notification, {type: 'error', message: 'You must select a user!' })
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You need to select a user to assign a role!' })
         }
         if(!data.role || 'empty' === data.role) {
-            return observer.trigger(observer.events.notification, {type: 'error', message: 'You must assign a role to the user!' })
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must assign a role to the user!' })
         }
         userManage.assignRole(data.user, data.role)
         .then(res =>{
@@ -46,13 +46,13 @@ export default class AdminPanel extends Component {
     }
     onSubmitRevoke = (data) => {
         if (Object.keys(data).length === 0 && data.constructor === Object) {
-            return observer.trigger(observer.events.notification, {type: 'error', message: 'You have not selected an option from the drop-down menu!' })
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You have not selected an option from the drop-down menu!' })
         }
         if(!data.user || 'empty' === data.user) {
-            return observer.trigger(observer.events.notification, {type: 'error', message: 'You must select a user!' })
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a user to remove the role from!' })
         }
         if(!data.role || 'empty' === data.role) {
-            return observer.trigger(observer.events.notification, {type: 'error', message: 'You must to choose a role for removing!' })
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must to choose a role for removing!' })
         }
         console.log(data);
         userManage.revokeRole(data.user, data.role)
@@ -90,7 +90,7 @@ export default class AdminPanel extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.allUsers.map((u, i) => <tr key={u._id} ><td>{u.username}</td><td className="roles-array">{0 !== u._kmd.roles.length ? this.state.allRoles.map((r, i) => u._kmd.roles.map((ur,i) => ur.roleId === r._id ? <span key="i">{r.name}</span> : null) ) : <span className="text-primary">'No role is assigned!'</span>}</td></tr>)}
+                            {this.state.allUsers.map((u, i) => <tr key={u._id} ><td>{u.username}</td><td className="roles-array">{ u._kmd.roles !== undefined && 0 !== u._kmd.roles.length ? this.state.allRoles.map((r, i) => u._kmd.roles.map((ur,i) => ur.roleId === r._id ? <span key="i">{r.name}</span> : null) ) : <span className="text-primary">'No role is assigned!'</span>}</td></tr>)}
                         </tbody>
                     </table>
                 </div>

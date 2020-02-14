@@ -30,7 +30,6 @@ export default class LoginPage extends Component {
                     observer.trigger(observer.events.loginUser, [res[0].username, userRoles(res[0], res[1])]);
                     sessionStorage.setItem('authtoken', res[0]._kmd.authtoken);
                     sessionStorage.setItem('username', res[0].username);
-                    sessionStorage.setItem('role', res[0].role);
                     sessionStorage.setItem('roles', res[0]._kmd.roles.map(r => r.roleId))
                     this.props.history.push('/');
                 })
