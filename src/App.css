@@ -19,6 +19,10 @@ body {
   margin-top: 0.75rem;
 }
 
+.page-link {
+  cursor: pointer;
+}
+
 .notification-type {
     border: 1px solid transparent;
     border-radius: 0.25rem;
