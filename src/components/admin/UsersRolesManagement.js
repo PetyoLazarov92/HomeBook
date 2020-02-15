@@ -44,7 +44,7 @@ export default class UsersRolesManagement extends Component {
         userManageService.assignRole(data.user, data.role)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "The role was assigned successfully to the user!"})
-            this.props.history.push('/admin-panel');
+            this.props.history.push('/admin-panel/users-roles');
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
@@ -62,7 +62,7 @@ export default class UsersRolesManagement extends Component {
         userManageService.revokeRole(data.user, data.role)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "The role was removed successfully!"})
-            this.props.history.push('/admin-panel');
+            this.props.history.push('/admin-panel/users-roles');
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
