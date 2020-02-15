@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BoundForm from '../common/BoundForm';
 import observer from '../../infrastructure/observer';
 import userManage from '../../services/userManageService'
+import Pagination from '../common/Pagination';
 
 export default class AdminPanel extends Component {
 
@@ -10,10 +11,14 @@ export default class AdminPanel extends Component {
 
         this.state = {
             allUsers : [],
-            allRoles : []
+            allRoles : [],
+            pageOfItems: []
         }
     }
-
+    onChangePage = (pageOfItems) => {
+        // update state with new page of items
+        this.setState({ pageOfItems: pageOfItems });
+    }
     getAllUsersAndRoles = () => {
         Promise.all([userManage.loadAllUsers(), userManage.loadUsersRoles()])
             .then(res => {
@@ -90,9 +95,10 @@ export default class AdminPanel extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.allUsers.map((u, i) => <tr key={u._id} ><td>{u.username}</td><td className="roles-array">{ u._kmd.roles !== undefined && 0 !== u._kmd.roles.length ? this.state.allRoles.map((r, i) => u._kmd.roles.map((ur,i) => ur.roleId === r._id ? <span key="i">{r.name}</span> : null) ) : <span className="text-primary">'No role is assigned!'</span>}</td></tr>)}
+                            {this.state.pageOfItems.map((u, i) => <tr key={u._id} ><td>{u.username}</td><td className="roles-array">{ u._kmd.roles !== undefined && 0 !== u._kmd.roles.length ? this.state.allRoles.map((r, i) => u._kmd.roles.map((ur,i) => ur.roleId === r._id ? <span key="i">{r.name}</span> : null) ) : <span className="text-primary">'No role is assigned!'</span>}</td></tr>)}
                         </tbody>
                     </table>
+                    <Pagination items={this.state.allUsers} onChangePage={this.onChangePage} />
                 </div>
                 <div className="col-12 col-md-6 pr-md-0">
                 <h2 className="title">Assign role to user</h2>

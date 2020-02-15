@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Switch} from 'react-router';
 import {Route} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Navigation from './components/common/Navigation';
 import Notification from './components/common/Notification';
