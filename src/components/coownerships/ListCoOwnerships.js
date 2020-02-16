@@ -10,7 +10,8 @@ export default class ListCoOwnership extends Component{
 
         this.state = {
             ready: false,
-            coOwnerships : []
+            coOwnerships : [],
+            search: ''
         }
     }
 
@@ -25,14 +26,35 @@ export default class ListCoOwnership extends Component{
             .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
 
+    updateSearch = (event) => {
+        this.setState({
+            search: event.target.value.substr(0,20)
+        })
+    }
+
     componentDidMount = () => {
         this.getCoOwnerships();
     }
 
-    render = () => {        
+    render = () => { 
+        let filteredCoOwnerships = this.state.coOwnerships.filter(
+            (coOwnership) => {
+                return coOwnership.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || coOwnership.city.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+            }
+        )       
         return (
             <div>
-                <h1>OwnerShips</h1>
+                <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                    <h1>OwnerShips</h1>
+                    <div class="input-group input-group-sm search-co-ownership">
+                        <div class="input-group-prepend">
+                            <label className="input-group-text bg-success text-white border-0" htmlFor="searchCoOwnership">Serch co-ownership</label>
+                        </div>
+                        <input id="searchCoOwnership" type="text" className="form-control" 
+                            value={this.state.search}
+                            onChange={this.updateSearch}/>
+                    </div>
+                </div>
                 {this.state.ready ? (
                     <table className="table table-striped">
                         <thead>
@@ -45,7 +67,7 @@ export default class ListCoOwnership extends Component{
                           </tr>
                         </thead>
                         <tbody>
-                            {this.state.coOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} {...p} />)}
+                            {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} {...p} />)}
                         </tbody>
                     </table>
                 ) : (
