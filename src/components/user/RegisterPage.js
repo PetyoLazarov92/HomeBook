@@ -28,11 +28,11 @@ export default class RegisterPage extends Component {
 
     onSubmit = (data, e) => {
         if(data.username ==='') {
-            return observer.trigger(observer.events.notification, {type: 'info', message: 'Username cant be empty!'});
+            return observer.trigger(observer.events.notification, {type: 'info', message: "Username can't be empty!"});
         } else if(!data.role || 'empty' === data.role) {
             return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a role!' })
         } else if(!data.password) {
-            return observer.trigger(observer.events.notification, {type: 'info', message: 'Password cant be empty!' });
+            return observer.trigger(observer.events.notification, {type: 'info', message: "Password can't be empty!" });
         } else if(data.password !== data.repeatPassword) {
             return observer.trigger(observer.events.notification, {type: 'info', message: 'Passwords do not match!' });
         } else {

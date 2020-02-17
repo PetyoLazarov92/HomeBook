@@ -48,7 +48,7 @@ export default class ListCoOwnership extends Component{
                     <h1>OwnerShips</h1>
                     <div class="input-group input-group-sm search-co-ownership">
                         <div class="input-group-prepend">
-                            <label className="input-group-text bg-success text-white border-0" htmlFor="searchCoOwnership">Serch co-ownership</label>
+                            <label className="input-group-text bg-success text-white border-0" htmlFor="searchCoOwnership">Search co-ownership</label>
                         </div>
                         <input id="searchCoOwnership" type="text" className="form-control" 
                             value={this.state.search}

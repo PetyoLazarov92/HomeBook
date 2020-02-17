@@ -17,9 +17,9 @@ export default class LoginPage extends Component {
     }
     onSubmit = (data, e) => {
         if(data.username ==='') {
-            observer.trigger(observer.events.notification, {type: 'info', message: 'Username cant be empty!'});
+            observer.trigger(observer.events.notification, {type: 'info', message: "Username can't be empty!"});
         } else if(!data.password) {
-            observer.trigger(observer.events.notification, {type: 'info', message: 'Password cant be empty!' });
+            observer.trigger(observer.events.notification, {type: 'info', message: "Password can't be empty!" });
         } else{
             this.setState({
                 ready: false
