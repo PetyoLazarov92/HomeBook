@@ -21,16 +21,13 @@ export default class ListEstates extends Component{
     }
 
     getEstates = (id) => {
-        estates.loadAllEstatesForThisCoOwnership(id)
+        Promise.all([estates.loadAllEstatesForThisCoOwnership(id), coOwnership.loadPostById(id)])
             .then(res => {
-                coOwnership.loadPostById(id)
-                .then(res => {
-                    this.setState({
-                        coOwnership: res
-                    })
-                })
+                let estates = res[0];
+                let coOwnership = res[1];
                 this.setState({
-                    estates: res,
+                    estates,
+                    coOwnership,
                     ready: true
                 })
             })

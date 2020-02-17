@@ -21,9 +21,11 @@ export default class UsersRolesManagement extends Component {
     getAllUsersAndRoles = () => {
         Promise.all([userManageService.loadAllUsers(), userManageService.loadUsersRoles()])
             .then(res => {
+                let allUsers = res[0];
+                let allRoles = res[1];
                 this.setState({
-                    allUsers: res[0],
-                    allRoles: res[1]
+                    allUsers,
+                    allRoles
                 })
             })
             .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
