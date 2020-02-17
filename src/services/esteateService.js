@@ -25,11 +25,11 @@ function editPost (postId, author, title, description, url, imageUrl) {
     imageUrl
   };
 
-  return requester.update('appdata', `posts/${postId}`, 'kinvey', updatedPostObj);
+  return requester.update('appdata', `estates/${postId}`, 'kinvey', updatedPostObj);
 }
 
 function deletePost (postId) {
-  return requester.remove('appdata', `posts/${postId}`, 'kinvey');
+  return requester.remove('appdata', `estates/${postId}`, 'kinvey');
 }
 
 function loadOwnPosts (username) {

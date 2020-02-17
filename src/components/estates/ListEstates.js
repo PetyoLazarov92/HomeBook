@@ -5,6 +5,7 @@ import observer from '../../infrastructure/observer';
 import estates from '../../services/esteateService';
 import coOwnership from '../../services/coOwnershipService';
 import Loading from '../common/loader/Loading';
+import ModalConfirmDelete from '../common/ModalConfirmDelete';
 
 export default class ListEstates extends Component{
     constructor(props) {
@@ -13,7 +14,9 @@ export default class ListEstates extends Component{
         this.state = {
             ready: false,
             estates : [],
-            coOwnership: {}
+            coOwnership: {},
+            showConfirm: false,
+            target: {}
         }
     }
 
@@ -35,6 +38,36 @@ export default class ListEstates extends Component{
             .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
 
+    onDelete = (id, target) => {
+        this.setState({
+            showConfirm: true,
+            target: target
+        })
+
+    }
+
+    deleteEstate = (id) => {
+        console.log(id)
+        estates.deletePost(id)
+            .then(res => {
+                observer.trigger(observer.events.notification, {type: 'success', message: "Estate Deleted Successfully!"});
+                this.setState({
+                    showConfirm: false
+                })
+                this.props.history.push("/estates/"+ this.state.coOwnership._id);
+            })
+            .catch(res => {
+                observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description });
+                this.props.history.push("/estates/"+ this.state.coOwnership._id);
+            });
+    }
+
+    handleClose = () => {
+        this.setState({
+            showConfirm: false
+        })
+    }
+
     componentDidMount = () => {
         const { match: { params } } = this.props;
         this.getEstates( params.id );
@@ -43,7 +76,6 @@ export default class ListEstates extends Component{
     render = () => {        
         return (
             <div>
-                {console.log(this.state.estates)}
                 <h1>Estates in <span className='font-italic text-primary'>{this.state.coOwnership.name}</span></h1>
                 <Link to={"/create-estate/"+ this.state.coOwnership._id} className="btn btn-primary btn-rounded btn-sm mx-2 mb-3">Add Estate</Link>
                 {this.state.ready ? (
@@ -60,7 +92,7 @@ export default class ListEstates extends Component{
                               </tr>
                             </thead>
                             <tbody>
-                                {this.state.estates.map((p, i) => <Estate key={p._id} index={i} {...p} />)}
+                                {this.state.estates.map((p, i) => <Estate key={p._id} index={i} onDelete={this.onDelete} {...p} />)}
                             </tbody>
                         </table>
                        )  : (
@@ -69,6 +101,20 @@ export default class ListEstates extends Component{
                 ) : (
                     <Loading />
                 )}
+                <ModalConfirmDelete
+                    showConfirm={this.state.showConfirm}
+                    closeHandler={this.handleClose}
+                    deleteHandler={this.deleteEstate}
+                    targetId={this.state.target._id}
+                    >
+                    <span className="font-italic text-primary"> {this.state.target.type} </span>
+                    &#8470;:
+                    <span className="font-italic text-primary"> {this.state.target.number} </span>
+                    on floor:
+                    <span className="font-italic text-primary"> {this.state.target.floor} </span>
+                    from
+                    <span className="font-italic text-primary"> {this.state.coOwnership.name} </span>
+                </ModalConfirmDelete>
             </div>
         )
     }

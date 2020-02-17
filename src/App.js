@@ -24,7 +24,6 @@ import DeleteCoOwnership from './components/coownerships/DeleteCoOwnership';
 import EditHomeBook from './components/homebook/EditHomeBook';
 import ListEstates from './components/estates/ListEstates';
 import EditEstae from './components/estates/EditEstate';
-import DeleteEstate from './components/estates/DeleteEstate';
 import AdminPanel from './components/admin/AdminPanel';
 import { withAdminAuthorization, withUserAuthorization, withHomeManagerAuthorization } from './utils/withAuthorization';
 
@@ -52,7 +51,6 @@ class App extends Component {
             <Route path='/create-home-book/:id' component={withHomeManagerAuthorization(CreateHomeBook)} />
             <Route path='/delete-record/:id' component={withHomeManagerAuthorization(DeleteRecordInHB)} />
             <Route path='/edit-record/:id' component={withHomeManagerAuthorization(EditHomeBook)} />
-            <Route path='/delete-estate/:id' component={withHomeManagerAuthorization(DeleteEstate)} />
             <Route path='/edit-estate/:id' component={withHomeManagerAuthorization(EditEstae)} />
             <Route path='/create-estate/:id' component={withHomeManagerAuthorization(CreateEstate)} />
             <Route path='/homebook/:id' component={withUserAuthorization(ListHomeBook)} />

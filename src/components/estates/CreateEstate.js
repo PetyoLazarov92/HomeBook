@@ -37,7 +37,7 @@ export default class CreateEstate extends Component {
         estateService.createEstate(newData)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Estate Created Successfully!"})
-            this.props.history.push('/ownerships');
+            this.props.history.push("/estates/"+ this.state.coOwnershipId);
         })
         .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
