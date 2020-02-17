@@ -7,7 +7,7 @@ export default class ModalConfirmDelete extends Component {
         this.props.deleteHandler(id);
     };
 
-    closeHandler = (e) => {
+    closeHandler = () => {
         this.props.closeHandler();
     }
 

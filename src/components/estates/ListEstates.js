@@ -25,7 +25,6 @@ export default class ListEstates extends Component{
             .then(res => {
                 coOwnership.loadPostById(id)
                 .then(res => {
-                    console.log(res)
                     this.setState({
                         coOwnership: res
                     })
@@ -47,7 +46,6 @@ export default class ListEstates extends Component{
     }
 
     deleteEstate = (id) => {
-        console.log(id)
         estates.deletePost(id)
             .then(res => {
                 observer.trigger(observer.events.notification, {type: 'success', message: "Estate Deleted Successfully!"});

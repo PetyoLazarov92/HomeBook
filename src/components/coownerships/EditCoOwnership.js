@@ -24,7 +24,6 @@ export default class EditCoOwnership extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.coOwnership);
         coOwnership.editPost(this.state.coOwnership, this.state.coOwnership._id)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Co-Ownership Edited Successfully!"})

@@ -46,8 +46,8 @@ export default class ListCoOwnership extends Component{
             <div>
                 <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                     <h1>OwnerShips</h1>
-                    <div class="input-group input-group-sm search-co-ownership">
-                        <div class="input-group-prepend">
+                    <div className="input-group input-group-sm search-co-ownership">
+                        <div className="input-group-prepend">
                             <label className="input-group-text bg-success text-white border-0" htmlFor="searchCoOwnership">Search co-ownership</label>
                         </div>
                         <input id="searchCoOwnership" type="text" className="form-control" 

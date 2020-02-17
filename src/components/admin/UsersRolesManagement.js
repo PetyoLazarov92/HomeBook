@@ -28,9 +28,6 @@ export default class UsersRolesManagement extends Component {
             })
             .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
     }
-    onRoleChange = (event) => {
-        console.log(event);
-    }
     onSubmitAssign = (data) => {
         if (Object.keys(data).length === 0 && data.constructor === Object) {
             return observer.trigger(observer.events.notification, {type: 'info', message: 'You have not selected an option from the drop-down menu!' })
@@ -58,7 +55,6 @@ export default class UsersRolesManagement extends Component {
         if(!data.role || 'empty' === data.role) {
             return observer.trigger(observer.events.notification, {type: 'info', message: 'You must to choose a role for removing!' })
         }
-        console.log(data);
         userManageService.revokeRole(data.user, data.role)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "The role was removed successfully!"})

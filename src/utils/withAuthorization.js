@@ -50,7 +50,6 @@ function withAuthorization (TargetComponent, targetRoles) {
 			for (let role of targetRoles) {
 				userHasAccess = userHasAccess || this.state.rolesAsNames.indexOf(role) !== -1;
 			}
-			console.log( );
 			if(userHasAccess){
 				return <TargetComponent {...this.props} />
 			} else {

@@ -7,7 +7,6 @@ export default class CoOwnership extends Component {
   render = () => {
       return(
       <tr>
-        {console.dir(this.props)}
         <td>{this.props.name}
           <CreatedBefore time={this.props._kmd.ect}/>
         </td>

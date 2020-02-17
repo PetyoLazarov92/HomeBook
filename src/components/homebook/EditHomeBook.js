@@ -49,7 +49,6 @@ export default class EditHomeBook extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.homeBookRecord);
         homeBookService.editPost(this.state.homeBookRecord, this.state.homeBookRecord._id)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Home book record Edited Successfully!"})
