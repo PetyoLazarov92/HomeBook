@@ -17,9 +17,8 @@ export default class ModalConfirmDelete extends Component {
                 <Modal.Header closeButton>
                 <Modal.Title>Attention!</Modal.Title>
                 </Modal.Header>
-                    <Modal.Body>Are you sure you want to delete
+                    <Modal.Body>
                         {this.props.children}
-                        ?
                     </Modal.Body>
                 <Modal.Footer>
                     <button className="btn btn-primary btn-sm" onClick={this.closeHandler.bind(this)}>

@@ -71,7 +71,7 @@ export default class ListEstates extends Component{
     render = () => {        
         return (
             <div>
-                <h1>Estates in <span className='font-italic text-primary'>{this.state.coOwnership.name}</span></h1>
+                <h1>Estates in <Link to={"/details-co-ownership/" + this.state.coOwnership._id} className='font-italic text-primary'>{this.state.coOwnership.name}</Link></h1>
                 <Link to={"/create-estate/"+ this.state.coOwnership._id} className="btn btn-primary btn-rounded btn-sm mx-2 mb-3">Add Estate</Link>
                 {this.state.ready ? (
                     this.state.estates.length !== 0 ? (
@@ -102,6 +102,7 @@ export default class ListEstates extends Component{
                     deleteHandler={this.deleteEstate}
                     targetId={this.state.target._id}
                     >
+                    Are you sure you want to delete
                     <span className="font-italic text-primary"> {this.state.target.type} </span>
                     &#8470;:
                     <span className="font-italic text-primary"> {this.state.target.number} </span>
@@ -109,6 +110,7 @@ export default class ListEstates extends Component{
                     <span className="font-italic text-primary"> {this.state.target.floor} </span>
                     from
                     <span className="font-italic text-primary"> {this.state.coOwnership.name} </span>
+                    ?
                 </ModalConfirmDelete>
             </div>
         )
