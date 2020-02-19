@@ -85,9 +85,9 @@ export default class ListCoOwnership extends Component{
         }
         return (
             <div>
-                <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center">
                     <h1>OwnerShips</h1>
-                    {houseManagerAccess && <div className="custom-control custom-switch">
+                    {houseManagerAccess && <div className="custom-control custom-switch mb-3 mb-lg-0">
                         <input
                             id="my-co-ownerships"
                             className="custom-control-input"
@@ -98,7 +98,7 @@ export default class ListCoOwnership extends Component{
                             />
                         <label className="custom-control-label" htmlFor="my-co-ownerships">My Co Ownerships</label>
                     </div>}
-                    <div className="input-group input-group-sm search-co-ownership">
+                    <div className="input-group input-group-sm search-co-ownership mb-3 mb-lg-0">
                         <div className="input-group-prepend">
                             <label className="input-group-text bg-success text-white border-0" htmlFor="searchCoOwnership">Search co-ownership</label>
                         </div>
