@@ -25,6 +25,7 @@ import ListEstates from './components/estates/ListEstates';
 import EditEstae from './components/estates/EditEstate';
 import AdminPanel from './components/admin/AdminPanel';
 import { withAdminAuthorization, withUserAuthorization, withHomeManagerAuthorization } from './utils/withAuthorization';
+import HouseManagerPanel from './components/houseManager/HouseManagerPanel';
 
 class App extends Component {
   render () {
@@ -41,6 +42,7 @@ class App extends Component {
             <Route path='/register' component={RegisterPage} />
             <Route path='/logout' component={Logout} />
             <Route path='/admin-panel' component={ withAdminAuthorization(AdminPanel)} />
+            <Route path='/house-manager-panel' component={ withHomeManagerAuthorization(HouseManagerPanel)} />
             <Route path='/ownerships' component={withUserAuthorization(ListCoOwnership)} />
             <Route path='/estates/:id' component={withUserAuthorization(ListEstates)} />
             <Route path='/create-co-ownership' component={withHomeManagerAuthorization(CreateCoOwnership)} />

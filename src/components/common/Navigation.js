@@ -60,6 +60,7 @@ export default class Navigation extends Component {
                             <NavLink exact to='/' className="nav-link" >Home</NavLink>
                             <NavLink to='/about' className="nav-link" >About</NavLink>
                             {adminAccess && <NavLink to='/admin-panel' className="nav-link" >Admin Panel</NavLink>}
+                            {houseManagerAccess && <NavLink to='/house-manager-panel' className="nav-link" >House Manager Panel</NavLink>}
                             {houseManagerAccess && <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>}
                             {loggedIn && <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>}
                             {loggedIn && <NavLink to='/home' className="nav-link"><strong>Hello, {userName}!</strong></NavLink>}

@@ -9,7 +9,7 @@ export default class Logout extends Component {
       .then(res => {
             sessionStorage.removeItem('authtoken');
             sessionStorage.removeItem('username');
-            sessionStorage.removeItem('role');
+            sessionStorage.removeItem('userId');
             sessionStorage.removeItem('roles');
             observer.trigger(observer.events.notification, {type: 'success', message: "Logout Success!"});
             observer.trigger(observer.events.logoutUser);            

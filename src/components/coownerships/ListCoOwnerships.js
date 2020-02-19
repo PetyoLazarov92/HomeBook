@@ -41,7 +41,7 @@ export default class ListCoOwnership extends Component{
             (coOwnership) => {
                 return coOwnership.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || coOwnership.city.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
             }
-        )       
+        )      
         return (
             <div>
                 <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">

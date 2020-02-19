@@ -59,7 +59,7 @@ function withAuthorization (TargetComponent, targetRoles) {
 						this.props.history.push('/');
 						return null
 					} else {
-					observer.trigger(observer.events.notification, {type: 'error', message: 'You are not logged in!.'});
+						observer.trigger(observer.events.notification, {type: 'error', message: 'You are not logged in!.'});
 						this.props.history.push('/');
 						return null
 					}
