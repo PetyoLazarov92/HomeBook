@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class ManagedOwnerships extends Component {
+export default class ManagedCoOwnerships extends Component {
 
     render = () => {
         return(

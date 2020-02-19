@@ -45,10 +45,10 @@ export default class Navigation extends Component {
             })
       }
     render = () => {
-        let loggedIn = sessionStorage.getItem('authtoken');
-        let userName = this.state.username;
-        let houseManagerAccess = this.state.userRoles.indexOf('admin') !== -1 || this.state.userRoles.indexOf('houseManager') !== -1;
-        let adminAccess = this.state.userRoles.indexOf('admin') !== -1;
+        const loggedIn = sessionStorage.getItem('authtoken');
+        const userName = this.state.username;
+        const houseManagerAccess = this.state.userRoles.indexOf('admin') !== -1 || this.state.userRoles.indexOf('houseManager') !== -1;
+        const adminAccess = this.state.userRoles.indexOf('admin') !== -1;
 
         return(
             <Navbar fixed="top" bg="light" expand="lg">

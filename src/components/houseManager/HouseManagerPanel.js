@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
 import {Switch, Redirect} from 'react-router';
 import {Route} from 'react-router-dom';
-import ManagedOwnerships from './ManagedOwnerships';
+import ManagedCoOwnerships from './ManagedCoOwnerships';
 
 export default class HouseManagerPanel extends Component {
     render = () => {
@@ -17,7 +17,7 @@ export default class HouseManagerPanel extends Component {
                 </ul>
             </div>
                 <Switch>
-                    <Route exact path='/house-manager-panel/managed-ownerships' component={ManagedOwnerships} />
+                    <Route exact path='/house-manager-panel/managed-ownerships' component={ManagedCoOwnerships} />
                     <Redirect path="/house-manager-panel" to="/house-manager-panel/managed-ownerships"/>
                 </Switch>
         </div>

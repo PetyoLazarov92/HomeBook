@@ -7,7 +7,8 @@ export default class DetailsCoOwnership extends Component {
         super(props);
 
         this.state = ({
-            coOwnership: {}
+            coOwnership: {},
+            isCreator: false
         })
     }
 
@@ -15,7 +16,10 @@ export default class DetailsCoOwnership extends Component {
         const { match: { params } } = this.props;
         coOwnership.loadPostById(params.id)
             .then(res => {
-                this.setState({ coOwnership: res });
+                this.setState({
+                    coOwnership: res,
+                    isCreator: res._acl.creator === sessionStorage.getItem('userId')
+                });
             })
     }
 
@@ -26,7 +30,7 @@ export default class DetailsCoOwnership extends Component {
         			<tr>
         				<th className='title' colSpan="2">
                         <h3>Details: <span className='font-italic text-primary'>{this.state.coOwnership.name}</span>
-                        <Link to={"/edit-co-ownership/"+ this.state.coOwnership._id} className="btn btn-warning btn-rounded btn-sm ml-5">Edit Information</Link>
+                        {this.state.isCreator && <Link to={"/edit-co-ownership/"+ this.state.coOwnership._id} className="btn btn-warning btn-rounded btn-sm ml-5">Edit Information</Link>}
                         </h3>
                         </th>
         			</tr>
