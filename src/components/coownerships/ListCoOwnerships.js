@@ -108,7 +108,7 @@ export default class ListCoOwnership extends Component{
                     </div>
                 </div>
                 {this.state.ready ? (
-                    <div class="table-responsive">
+                    <div className="table-responsive">
                         <table className="table table-striped">
                             <thead>
                               <tr>
