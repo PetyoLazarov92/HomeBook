@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import CreatedBefore from '../common/CreatedBefore';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import Edit from '@material-ui/icons/Edit';
+import MoreIcon from '@material-ui/icons/More';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import ApartmentIcon from '@material-ui/icons/Apartment';
 
 export default class CoOwnership extends Component {
 
@@ -15,11 +20,11 @@ export default class CoOwnership extends Component {
         		<td>{this.props.city}</td>
         		<td>{this.props.postCode}</td>
         		<td>
-					<Link to={"/details-co-ownership/"+ this.props._id} className="btn btn-primary btn-rounded btn-sm mx-2">Details</Link>
-        		    {isCreator && <Link to={"/estates/"+ this.props._id} className="btn btn-primary btn-rounded btn-sm mx-2">Estates</Link>}
-        		    {isCreator && <Link to={"/homebook/"+ this.props._id} className="btn btn-primary btn-rounded btn-sm mx-2">Home Book</Link>}
-        		    {isCreator && <Link to={"/edit-co-ownership/"+ this.props._id} className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>}
-        		    {isCreator && <Link to={"/delete-co-ownership/"+ this.props._id} className="btn btn-danger btn-rounded btn-sm mx-2">Delete</Link>}
+					<Link title="Details" to={"/details-co-ownership/"+ this.props._id} className="text-primary"><MoreIcon fontSize="large"/></Link>
+        		    {isCreator && <Link title="Estates" to={"/estates/"+ this.props._id} className="text-primary btn-sm"><ApartmentIcon fontSize="large"/></Link>}
+        		    {isCreator && <Link title="Home Book" to={"/homebook/"+ this.props._id} className="text-primary btn-sm"><MenuBookIcon fontSize="large"/></Link>}
+        		    {isCreator && <Link title="Edit" to={"/edit-co-ownership/"+ this.props._id} className="text-warning"><Edit fontSize="large"/></Link>}
+        		    {isCreator && <Link title="Delete" to={"/delete-co-ownership/"+ this.props._id} className="text-danger"><DeleteForever fontSize="large"/></Link>}
         		</td>
       		</tr>
     	)

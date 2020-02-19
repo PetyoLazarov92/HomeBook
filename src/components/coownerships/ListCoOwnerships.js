@@ -108,20 +108,22 @@ export default class ListCoOwnership extends Component{
                     </div>
                 </div>
                 {this.state.ready ? (
-                    <table className="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Name</th>
-                            <th>Municipality</th>
-                            <th>City</th>
-                            <th>Postal Code</th>
-                            <th>Controls</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} {...p} />)}
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table className="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th>Municipality</th>
+                                <th>City</th>
+                                <th>Postal Code</th>
+                                <th>Controls</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} {...p} />)}
+                            </tbody>
+                        </table>
+                    </div>
                 ) : (
                     <Loading />
                 )}
