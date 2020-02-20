@@ -33,15 +33,22 @@ export default class Navigation extends Component {
       componentDidMount() {
         userManageService.loadUsersRoles()
             .then(res => {
-                if(sessionStorage.getItem('roles').length !== 0 && sessionStorage.getItem('username').length !== 0){
-                    let userRoles = sessionStorage.getItem('roles');
-                    let availableRoles = res;
-                    let rolesAsNames = availableRoles.filter(element => userRoles.indexOf(element._id) !== -1);
-                    rolesAsNames = rolesAsNames.map(e => e.name);
-                    return observer.trigger(observer.events.loginUser, [sessionStorage.getItem('username'), rolesAsNames]);
+                if( sessionStorage.getItem('roles') !== null && sessionStorage.getItem('username') !== null ){
+                    if( sessionStorage.getItem('roles').length !== 0 && sessionStorage.getItem('username').length !== 0 ){
+                        let userRoles = sessionStorage.getItem('roles');
+                        let availableRoles = res;
+                        let rolesAsNames = availableRoles.filter(element => userRoles.indexOf(element._id) !== -1);
+                        rolesAsNames = rolesAsNames.map(e => e.name);
+                        return observer.trigger(observer.events.loginUser, [sessionStorage.getItem('username'), rolesAsNames]);
+                    } else {
+                        return null
+                    }
                 } else {
                     return null
                 }
+            })
+            .catch(res => {
+                observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
             })
       }
     render = () => {

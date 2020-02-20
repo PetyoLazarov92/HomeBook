@@ -59,13 +59,19 @@ export default class RegisterPage extends Component {
                                 sessionStorage.setItem('username', user_res.username);
                                 this.props.history.push('/');
                             })
+                            .catch(res => {
+                                this.setState({
+                                    ready: true
+                                })
+                                observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
+                            })
                     })
               })
               .catch(res =>{
-                this.setState({
-                    ready: true
-                })
-                  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
+                    this.setState({
+                        ready: true
+                    })
+                    observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description })
                 });
         }
     }
