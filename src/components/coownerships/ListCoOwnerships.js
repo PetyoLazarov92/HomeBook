@@ -14,7 +14,9 @@ export default class ListCoOwnership extends Component{
             coOwnerships : [],
             search: '',
             isMyCoOwnerships: false,
-            userRoles: []
+            subscribedTo: false,
+            userRoles: [],
+            subscribedToCoOwnershipsArray: []
         }
         observer.subscribe(observer.events.loginUser, this.userLoggedIn);
     }
@@ -28,8 +30,10 @@ export default class ListCoOwnership extends Component{
     getCoOwnerships = () => {
         coOwnership.loadAllCoOwnerships()
             .then(res => {
+                let subscribedToCoOwnershipsArray = this.subscribedToHandler(res);
                 this.setState({
                     coOwnerships: res,
+                    subscribedToCoOwnershipsArray,
                     ready: true
                 })
             })
@@ -52,6 +56,72 @@ export default class ListCoOwnership extends Component{
         })
     }
 
+    subscribe = (coOwnershipId) => {
+        let coOwnershipForUpdate = this.state.coOwnerships.filter(
+            (coOwnership) => {
+                return coOwnership._id.indexOf(coOwnershipId) !== -1;
+            }
+        )[0]
+        const userId = sessionStorage.getItem('userId');
+        let userObj = {userId, approved:false}
+        // If there are no subscribed users, create an empty array for them by now.
+        if(!coOwnershipForUpdate.subscribedUsers){
+            coOwnershipForUpdate.subscribedUsers = []; // Initializing an empty array.
+        }
+        // Add Subscribed User. 
+        coOwnershipForUpdate.subscribedUsers.push(userObj)
+
+        // Update co-ownership information.
+        coOwnership.editPost(coOwnershipForUpdate, coOwnershipId)
+        .then(res =>{
+            this.getCoOwnerships();
+            observer.trigger(observer.events.notification, {type: 'success', message: "You have successfully submitted a request to join this co-ownership!"})
+        })
+        .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+    }
+
+    unsubscribe = (coOwnershipId) => {
+        let coOwnershipForUpdate = this.state.coOwnerships.filter(
+            (coOwnership) => {
+                return coOwnership._id.indexOf(coOwnershipId) !== -1;
+            }
+        )[0]
+        const userId = sessionStorage.getItem('userId'); // "5e3132bc8831263ac7ceaeef"
+        
+        if(coOwnershipForUpdate.subscribedUsers){
+            let restUsers = coOwnershipForUpdate.subscribedUsers.filter(
+                (user) => {
+                    return user.userId !== userId
+                }
+            )
+            coOwnershipForUpdate.subscribedUsers = restUsers;
+
+            coOwnership.editPost(coOwnershipForUpdate, coOwnershipId)
+            .then(res =>{
+                this.getCoOwnerships();
+                observer.trigger(observer.events.notification, {type: 'info', message: "You have successfully unsubscribed from this co-ownership!"})
+            })
+            .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+        } else {
+            observer.trigger(observer.events.notification, {type: 'error', message: 'You cannot unsubscribe from co-ownership because you have not yet submitted an entry request!' })
+        }
+        
+    }
+
+    subscribedToHandler = (coOwnerships) => {
+        const userId = sessionStorage.getItem('userId');
+        let subscribedToCoOwnerships = coOwnerships.filter(
+            (coOwnership) => {
+                if(coOwnership.subscribedUsers){
+                    return coOwnership.subscribedUsers.map(user => user.hasOwnProperty('userId') ? user.userId === userId ? true : false : null ).find(el => el === true)
+                } else {
+                    return false;
+                }
+            }
+        );
+        return(subscribedToCoOwnerships)
+    }
+
     componentDidMount = () => {
         this.getCoOwnerships();
         userManageService.loadUsersRoles()
@@ -70,6 +140,7 @@ export default class ListCoOwnership extends Component{
 
     render = () => {
         const houseManagerAccess = this.state.userRoles.indexOf('admin') !== -1 || this.state.userRoles.indexOf('houseManager') !== -1;
+        const userAccess = this.state.userRoles.indexOf('user') !== -1;
         let filteredCoOwnerships = this.state.coOwnerships.filter(
             (coOwnership) => {
                 return coOwnership.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || coOwnership.city.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
@@ -82,6 +153,9 @@ export default class ListCoOwnership extends Component{
                     return coOwnership._acl.creator.indexOf(creatorId) !== -1 ;
                 }
             )
+        }
+        if( this.state.subscribedTo ) {
+            filteredCoOwnerships = this.subscribedToHandler(filteredCoOwnerships);
         }
         return (
             <div>
@@ -97,6 +171,17 @@ export default class ListCoOwnership extends Component{
                             onChange={this.handleMyCoOwnershipsChange}
                             />
                         <label className="custom-control-label" htmlFor="my-co-ownerships">My Co Ownerships</label>
+                    </div>}
+                    {userAccess && <div className="custom-control custom-switch mb-3 mb-lg-0">
+                        <input
+                            id="my-co-ownerships"
+                            className="custom-control-input"
+                            type="checkbox"
+                            name="subscribedTo"
+                            checked={this.state.subscribedTo}
+                            onChange={this.handleMyCoOwnershipsChange}
+                            />
+                        <label className="custom-control-label" htmlFor="my-co-ownerships">To which I am subscribed:</label>
                     </div>}
                     <div className="input-group input-group-sm search-co-ownership mb-3 mb-lg-0">
                         <div className="input-group-prepend">
@@ -120,7 +205,7 @@ export default class ListCoOwnership extends Component{
                               </tr>
                             </thead>
                             <tbody>
-                                {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} {...p} />)}
+                                {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} subscribe={this.subscribe} unsubscribe={this.unsubscribe} subscribedToCoOwnershipsArray={this.state.subscribedToCoOwnershipsArray} {...p} />)}
                             </tbody>
                         </table>
                     </div>
