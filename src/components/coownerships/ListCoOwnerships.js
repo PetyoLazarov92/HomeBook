@@ -205,7 +205,7 @@ export default class ListCoOwnership extends Component{
                               </tr>
                             </thead>
                             <tbody>
-                                {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} subscribe={this.subscribe} unsubscribe={this.unsubscribe} subscribedToCoOwnershipsArray={this.state.subscribedToCoOwnershipsArray} {...p} />)}
+                                {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} subscribe={this.subscribe} unsubscribe={this.unsubscribe} subscribedToCoOwnershipsArray={this.state.subscribedToCoOwnershipsArray} userRoles={this.state.userRoles} {...p} />)}
                             </tbody>
                         </table>
                     </div>

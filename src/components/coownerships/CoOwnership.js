@@ -5,8 +5,9 @@ import CreatedBefore from '../common/CreatedBefore';
 export default class CoOwnership extends Component {
 
   	render = () => {
-		  let loggedInUser = sessionStorage.getItem('userId');
-		  let isCreator = loggedInUser === this.props._acl.creator;
+		  const loggedInUser = sessionStorage.getItem('userId');
+		  const isCreator = loggedInUser === this.props._acl.creator;
+		  const userAccess = this.props.userRoles.indexOf('user') !== -1;
 		  let isSubscribed = false
 		  if(this.props.subscribedToCoOwnershipsArray.length !== 0){
 				for (let el of this.props.subscribedToCoOwnershipsArray) {
@@ -26,9 +27,9 @@ export default class CoOwnership extends Component {
         		<td>
 					<Link to={"/details-co-ownership/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Details"><i className="material-icons md-36">more</i></Link>
 					{isSubscribed ?
-						<button onClick={() => this.props.unsubscribe(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Unsubscribe"><i className="material-icons md-36">block</i></button>
+						userAccess && <button onClick={() => this.props.unsubscribe(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Unsubscribe"><i className="material-icons md-36">block</i></button>
 						: 
-						<button onClick={() => this.props.subscribe(this.props._id)} className="btn box-shadow-none text-success mx-2 p-0" title="Subscribe"><i className="material-icons md-36">add_circle</i></button>
+						userAccess && <button onClick={() => this.props.subscribe(this.props._id)} className="btn box-shadow-none text-success mx-2 p-0" title="Subscribe"><i className="material-icons md-36">add_circle</i></button>
 					}
         		    {isCreator && <Link to={"/estates/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Estates"><i className="material-icons md-36">location_city</i></Link>}
         		    {isCreator && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">event_note</i></Link>}
