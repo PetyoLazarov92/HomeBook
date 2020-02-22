@@ -5,6 +5,14 @@ import coOwnership from '../../services/coOwnershipService'
 import Loading from '../common/loader/Loading';
 import userManageService from '../../services/userManageService';
 
+function alertFunc() {
+    if (window.confirm("Are You Sure You Want Unsubscribe? If you now unsubscribe, upon subsequent subscription, you will have to wait again for approval from the Ownership Manager!")) {
+        return true
+    } else {
+        return false
+    }
+}
+
 export default class ListCoOwnership extends Component{
     constructor(props) {
         super(props);
@@ -81,31 +89,35 @@ export default class ListCoOwnership extends Component{
     }
 
     unsubscribe = (coOwnershipId) => {
-        let coOwnershipForUpdate = this.state.coOwnerships.filter(
-            (coOwnership) => {
-                return coOwnership._id.indexOf(coOwnershipId) !== -1;
-            }
-        )[0]
-        const userId = sessionStorage.getItem('userId'); // "5e3132bc8831263ac7ceaeef"
-        
-        if(coOwnershipForUpdate.subscribedUsers){
-            let restUsers = coOwnershipForUpdate.subscribedUsers.filter(
-                (user) => {
-                    return user.userId !== userId
+        if(alertFunc()){
+            let coOwnershipForUpdate = this.state.coOwnerships.filter(
+                (coOwnership) => {
+                    return coOwnership._id.indexOf(coOwnershipId) !== -1;
                 }
-            )
-            coOwnershipForUpdate.subscribedUsers = restUsers;
-
-            coOwnership.editPost(coOwnershipForUpdate, coOwnershipId)
-            .then(res =>{
-                this.getCoOwnerships();
-                observer.trigger(observer.events.notification, {type: 'info', message: "You have successfully unsubscribed from this co-ownership!"})
-            })
-            .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+            )[0]
+            const userId = sessionStorage.getItem('userId'); // "5e3132bc8831263ac7ceaeef"
+            
+            if(coOwnershipForUpdate.subscribedUsers){
+                let restUsers = coOwnershipForUpdate.subscribedUsers.filter(
+                    (user) => {
+                        return user.userId !== userId
+                    }
+                )
+                coOwnershipForUpdate.subscribedUsers = restUsers;
+    
+                coOwnership.editPost(coOwnershipForUpdate, coOwnershipId)
+                .then(res =>{
+                    this.getCoOwnerships();
+                    observer.trigger(observer.events.notification, {type: 'info', message: "You have successfully unsubscribed from this co-ownership!"})
+                })
+                .catch(res =>  observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description }));
+            } else {
+                observer.trigger(observer.events.notification, {type: 'error', message: 'You cannot unsubscribe from co-ownership because you have not yet submitted an entry request!' })
+            }
         } else {
-            observer.trigger(observer.events.notification, {type: 'error', message: 'You cannot unsubscribe from co-ownership because you have not yet submitted an entry request!' })
-        }
-        
+            observer.trigger(observer.events.notification, {type: 'info', message: "Unsubscribe was canceled!"});
+            this.props.history.push('/ownerships');
+        }        
     }
 
     subscribedToHandler = (coOwnerships) => {

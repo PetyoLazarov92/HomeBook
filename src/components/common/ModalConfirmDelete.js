@@ -13,7 +13,7 @@ export default class ModalConfirmDelete extends Component {
 
     render() {  
         return (
-            <Modal size="lg" show={this.props.showConfirm} onHide={this.closeHandler}>
+            <Modal centered show={this.props.showConfirm} onHide={this.closeHandler}>
                 <Modal.Header closeButton>
                 <Modal.Title>Attention!</Modal.Title>
                 </Modal.Header>
