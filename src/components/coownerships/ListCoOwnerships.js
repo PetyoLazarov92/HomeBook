@@ -6,7 +6,7 @@ import Loading from '../common/loader/Loading';
 import userManageService from '../../services/userManageService';
 
 function alertFunc() {
-    if (window.confirm("Are You Sure You Want Unsubscribe? If you now unsubscribe, upon subsequent subscription, you will have to wait again for approval from the Ownership Manager!")) {
+    if (window.confirm("Are You Sure You Want To Unsubscribe? If you unsubscribe now, upon subsequent subscription, you will have to wait again for approval from the Ownership Manager!")) {
         return true
     } else {
         return false
