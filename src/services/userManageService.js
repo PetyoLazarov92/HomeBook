@@ -4,6 +4,10 @@ import requester from '../infrastructure/requester';
 function loadAllUsers () {
   return requester.get('user', '', 'kinvey');
 }
+// All Users.
+function loadUser (id) {
+  return requester.get('user', `?query={"_id":"${id}"}`, 'kinvey');
+}
 
 // All Roles.
 function loadUsersRoles () {
@@ -27,6 +31,7 @@ function revokeRole (userId, roleId) {
 
 export default {
   loadAllUsers,
+  loadUser,
   loadUsersRoles,
   loadRoleMembers,
   assignRole,

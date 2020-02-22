@@ -24,8 +24,8 @@ function deletePost (postId) {
   return requester.remove('appdata', `coOwnerships/${postId}`, 'kinvey');
 }
 
-function loadOwnPosts (username) {
-  let endpoint = `posts?query={"author":"${username}"}`;
+function loadOwnPosts (userId) {
+  let endpoint = `coOwnerships?query={"_acl.creator":"${userId}"}`;
 
   return requester.get('appdata', endpoint, 'kinvey');
 }

@@ -27,12 +27,12 @@ export default class CoOwnership extends Component {
         		<td>
 					<Link to={"/details-co-ownership/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Details"><i className="material-icons md-36">more</i></Link>
 					{isSubscribed ?
-						userAccess && <button onClick={() => this.props.unsubscribe(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Unsubscribe"><i className="material-icons md-36">block</i></button>
+						userAccess && <button onClick={() => this.props.unsubscribe(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Unsubscribe"><i className="material-icons md-36">remove_circle</i></button>
 						: 
 						userAccess && <button onClick={() => this.props.subscribe(this.props._id)} className="btn box-shadow-none text-success mx-2 p-0" title="Subscribe"><i className="material-icons md-36">add_circle</i></button>
 					}
         		    {isCreator && <Link to={"/estates/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Estates"><i className="material-icons md-36">location_city</i></Link>}
-        		    {isCreator && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">event_note</i></Link>}
+        		    {isCreator && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">local_library</i></Link>}
         		    {isCreator && <Link to={"/edit-co-ownership/"+ this.props._id} className="btn box-shadow-none text-warning mx-2 p-0" title="Edit"><i className="material-icons md-36">edit</i></Link>}
         		    {isCreator && <Link to={"/delete-co-ownership/"+ this.props._id} className="btn box-shadow-none text-danger mx-2 p-0" title="Delete"><i className="material-icons md-36">delete_forever</i></Link>}
         		</td>
