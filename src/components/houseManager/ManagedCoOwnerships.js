@@ -96,36 +96,16 @@ export default class ManagedCoOwnerships extends Component {
                                 null
                             }
                         </div>
-                    <div className="col-12 col-md-6">
-                    <h2 className="title">Add or Remove occupant</h2>
-                        {selectedCoOwnership
-                            ?
-                            selectedCoOwnership.subscribedUsers ? selectedCoOwnership.subscribedUsers.map((su,i) => <SubscribedUser key={i} su={su} refuse={this.refuse} approve={this.approve} coid={selectedCoOwnership._id} {...su}/>) : <p className="font-italic text-danger">There are no users yet who want to join co-ownership!</p>
-                            :
-                            <p className="font-italic text-primary">Select a co-ownership to Approve or Refuse a occupant!</p>
-                        }
+                        <div className="col-12 col-md-6">
+                        <h2 className="title">Add or Remove occupant</h2>
+                            {selectedCoOwnership
+                                ?
+                                selectedCoOwnership.subscribedUsers ? selectedCoOwnership.subscribedUsers.map((su,i) => <SubscribedUser key={i} su={su} refuse={this.refuse} approve={this.approve} coid={selectedCoOwnership._id} {...su}/>) : <p className="font-italic text-danger">There are no users yet who want to join co-ownership!</p>
+                                :
+                                <p className="font-italic text-primary">Select a co-ownership to Approve or Refuse a occupant!</p>
+                            }
+                        </div>
                     </div>
-                    </div>
-                    {/* <div className="table-responsive">
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-        				        <th>
-                                    Name
-                                </th>
-                                <th>
-                                    City
-                                </th>
-                                <th>
-                                    Users
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.myManagedCoOwnerships.map((co, i) => <tr key={co._id} ><td><Link to={"/details-co-ownership/"+ co._id} className="btn box-shadow-none text-primary p-0" title="Details">{co.name}</Link></td><td>{co.city}</td><td className="roles-array">{co.subscribedUsers ? co.subscribedUsers.map((su,i) => <SubscribedUser key={i} su={su} refuse={this.refuse} approve={this.approve} coid={co._id} {...su}/>) : 'There are no users yet who want to join co-ownership!'}</td></tr>)}
-                        </tbody>
-                    </table>
-                </div> */}
                 </div>
             </div>
         )
