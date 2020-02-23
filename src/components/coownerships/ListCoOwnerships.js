@@ -5,8 +5,15 @@ import coOwnership from '../../services/coOwnershipService'
 import Loading from '../common/loader/Loading';
 import userManageService from '../../services/userManageService';
 
-function alertFunc() {
+function alertUnsubscribeFunc() {
     if (window.confirm("Are You Sure You Want To Unsubscribe? If you unsubscribe now, upon subsequent subscription, you will have to wait again for approval from the Ownership Manager!")) {
+        return true
+    } else {
+        return false
+    }
+}
+function alertDeleteFunc() {
+    if (window.confirm("Are You Sure You Want To Delete!")) {
         return true
     } else {
         return false
@@ -89,7 +96,7 @@ export default class ListCoOwnership extends Component{
     }
 
     unsubscribe = (coOwnershipId) => {
-        if(alertFunc()){
+        if(alertUnsubscribeFunc()){
             let coOwnershipForUpdate = this.state.coOwnerships.filter(
                 (coOwnership) => {
                     return coOwnership._id.indexOf(coOwnershipId) !== -1;
@@ -132,6 +139,23 @@ export default class ListCoOwnership extends Component{
             }
         );
         return(subscribedToCoOwnerships)
+    }
+
+    deleteCoOwnership = (id) => {
+        if(alertDeleteFunc()){
+            coOwnership.deletePost(id)
+            .then(res => {
+                observer.trigger(observer.events.notification, {type: 'success', message: "OwnerShip Deleted Successfully!"});
+                this.props.history.push('/ownerships');
+            })
+            .catch(res => {
+                observer.trigger(observer.events.notification, {type: 'error', message: res.responseJSON.description });
+                this.props.history.push('/ownerships');
+            });
+        } else {
+            observer.trigger(observer.events.notification, {type: 'info', message: "You cancelled deleting OwnerShip!"});
+            this.props.history.push('/ownerships');
+        }
     }
 
     componentDidMount = () => {
@@ -217,7 +241,14 @@ export default class ListCoOwnership extends Component{
                               </tr>
                             </thead>
                             <tbody>
-                                {filteredCoOwnerships.map((p, i) => <CoOwnership key={p._id} index={i} subscribe={this.subscribe} unsubscribe={this.unsubscribe} subscribedToCoOwnershipsArray={this.state.subscribedToCoOwnershipsArray} userRoles={this.state.userRoles} {...p} />)}
+                                {filteredCoOwnerships.map((p, i) => <CoOwnership 
+                                key={p._id} index={i} 
+                                subscribe={this.subscribe} 
+                                unsubscribe={this.unsubscribe} 
+                                subscribedToCoOwnershipsArray={this.state.subscribedToCoOwnershipsArray} 
+                                userRoles={this.state.userRoles} 
+                                deleteCoOwnership={this.deleteCoOwnership}
+                                {...p} />)}
                             </tbody>
                         </table>
                     </div>

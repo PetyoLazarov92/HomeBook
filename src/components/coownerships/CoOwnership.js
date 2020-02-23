@@ -38,7 +38,7 @@ export default class CoOwnership extends Component {
         		    {(isCreator || isApproved) && <Link to={"/estates/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Estates"><i className="material-icons md-36">location_city</i></Link>}
         		    {(isCreator || isApproved) && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">local_library</i></Link>}
         		    {isCreator && <Link to={"/edit-co-ownership/"+ this.props._id} className="btn box-shadow-none text-warning mx-2 p-0" title="Edit"><i className="material-icons md-36">edit</i></Link>}
-        		    {isCreator && <Link to={"/delete-co-ownership/"+ this.props._id} className="btn box-shadow-none text-danger mx-2 p-0" title="Delete"><i className="material-icons md-36">delete_forever</i></Link>}
+        		    {isCreator && <button onClick={() => this.props.deleteCoOwnership(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Delete"><i className="material-icons md-36">delete_forever</i></button>}
         		</td>
       		</tr>
     	)

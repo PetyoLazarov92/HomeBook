@@ -19,7 +19,6 @@ import EditCoOwnership from './components/coownerships/EditCoOwnership';
 import ListCoOwnership from './components/coownerships/ListCoOwnerships';
 import AboutPage from './components/home/AboutPage';
 import NotFound from './components/home/NotFound';
-import DeleteCoOwnership from './components/coownerships/DeleteCoOwnership';
 import EditHomeBook from './components/homebook/EditHomeBook';
 import ListEstates from './components/estates/ListEstates';
 import EditEstae from './components/estates/EditEstate';
@@ -48,7 +47,6 @@ class App extends Component {
             <Route path='/create-co-ownership' component={withHomeManagerAuthorization(CreateCoOwnership)} />
             <Route path='/details-co-ownership/:id' component={withUserAuthorization(DetailsCoOwnership)} />
             <Route path='/edit-co-ownership/:id' component={withHomeManagerAuthorization(EditCoOwnership)} />
-            <Route path='/delete-co-ownership/:id' component={withHomeManagerAuthorization(DeleteCoOwnership)} />
             <Route path='/create-home-book/:id' component={withHomeManagerAuthorization(CreateHomeBook)} />
             <Route path='/edit-record/:id' component={withHomeManagerAuthorization(EditHomeBook)} />
             <Route path='/edit-estate/:id' component={withHomeManagerAuthorization(EditEstae)} />
