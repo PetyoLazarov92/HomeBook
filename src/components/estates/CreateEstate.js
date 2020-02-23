@@ -26,6 +26,9 @@ export default class CreateEstate extends Component {
     
     
     onSubmit = (data, e) => {
+        if(!data.type || 'empty' === data.type) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a estate type!' })
+        }
         let newData = {
             type: data.type,
             number: data.number,
@@ -51,8 +54,9 @@ export default class CreateEstate extends Component {
 
                     <div  className="panel-body" >
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
-                            <label htmlFor="type">Type:</label>
+                            <label htmlFor="type">Estate type:</label>
                             <select name='type' className='form-control'>
+                                <option value="empty">- Select type -</option>
                                 <option value="apartment">Аpartment</option>
                                 <option value="garage">Garage</option>
                                 <option value="atelier">Atelier</option>
