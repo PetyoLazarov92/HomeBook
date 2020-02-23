@@ -49,6 +49,12 @@ export default class EditHomeBook extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        if(!this.state.homeBookRecord.toEstate || 'empty' === this.state.homeBookRecord.toEstate) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a estate!' })
+        }
+        if(!this.state.homeBookRecord.typeOfBusines || 'empty' === this.state.homeBookRecord.typeOfBusines) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a type!' })
+        }
         homeBookService.editPost(this.state.homeBookRecord, this.state.homeBookRecord._id)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Home book record Edited Successfully!"})
@@ -68,12 +74,14 @@ export default class EditHomeBook extends Component {
                     <div  className="panel-body" >
                         <form onSubmit={this.onSubmit} className="form-horizontal">
                         <label htmlFor="toEstate">To Estate:</label>
-                            <select onChange={this.onChange} name='toEstate' className='form-control'>
+                            <select onChange={this.onChange} name='toEstate' value={this.state.homeBookRecord.toEstate} className='form-control'>
+                                <option value="empty">- Select to estate -</option>
                                 {this.state.estates.map((p, i) => <option key={p._id} value={p._id}>{p.type} № {p.number}</option>)}
                             </select>
 
                             <label htmlFor="typeOfBusiness">Тype:</label>
                             <select onChange={this.onChange} value={this.state.homeBookRecord.typeOfBusines} name='typeOfBusines' className='form-control'>
+                                <option value="empty">- Select type -</option>
                                 <option value="individual">Individual</option>
                                 <option value="company">Company</option>
                             </select>
