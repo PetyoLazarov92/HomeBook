@@ -29,6 +29,18 @@ export default class CreateHomeBook extends Component {
     }
 
     onSubmit = (data, e) => {
+        if(!data.toEstate || 'empty' === data.toEstate) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select a estate!' })
+        }
+        if(!data.typeOfBusines || 'empty' === data.typeOfBusines) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select Personal or Corporate!' })
+        }
+        if(!data.names || 'empty' === data.names) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: "Occupant name can't be empty!" })
+        }
+        if(!data.typeOfOccupant || 'empty' === data.typeOfOccupant) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must select Type Of Occupant!' })
+        }
         let newData = {
             names:data.names,
             startingDate:data.startingDate,
@@ -57,11 +69,13 @@ export default class CreateHomeBook extends Component {
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
                             <label htmlFor="toEstate">To Estate:</label>
                             <select name='toEstate' className='form-control'>
+                                <option value="empty">- Select To Estate -</option>
                                 {this.state.estates.map((p, i) => <option key={p._id} value={p._id}>{p.type} № {p.number}</option>)}
                             </select>
 
-                            <label htmlFor="typeOfBusiness">Тype:</label>
+                            <label htmlFor="typeOfBusiness">Personal or Corporate:</label>
                             <select name='typeOfBusines' className='form-control'>
+                                <option value="empty">- Select type -</option>
                                 <option value="individual">Individual</option>
                                 <option value="company">Company</option>
                             </select>
@@ -71,6 +85,7 @@ export default class CreateHomeBook extends Component {
 
                             <label htmlFor="typeOfOccupant">Type of Occupant:</label>
                             <select name='typeOfOccupant' className='form-control'>
+                                <option value="empty">- Select type of Occupant -</option>
                                 <option value="owner">Owner</option>
                                 <option value="relatedEntity">Related Entity</option>
                                 <option value="occupant">Occupant / Tenant</option>
