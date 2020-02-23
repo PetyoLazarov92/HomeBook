@@ -75,21 +75,23 @@ export default class ListEstates extends Component{
                 <Link to={"/create-estate/"+ this.state.coOwnership._id} className="btn btn-primary btn-rounded btn-sm mx-2 mb-3">Add Estate</Link>
                 {this.state.ready ? (
                     this.state.estates.length !== 0 ? (
-                        <table className="table table-striped">
-                            <thead>
-                              <tr>
-                                <th>Type</th>
-                                <th>Number</th>
-                                <th>Floor</th>
-                                <th>Built-up area</th>
-                                <th>Common parts</th>
-                                <th>Controls</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.estates.map((p, i) => <Estate key={p._id} index={i} onDelete={this.onDelete} {...p} />)}
-                            </tbody>
-                        </table>
+                        <div className="table-responsive">
+                            <table className="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Type</th>
+                                    <th>Number</th>
+                                    <th>Floor</th>
+                                    <th>Built-up area</th>
+                                    <th>Common parts</th>
+                                    <th>Controls</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.estates.map((p, i) => <Estate key={p._id} index={i} onDelete={this.onDelete} {...p} />)}
+                                </tbody>
+                            </table>
+                        </div>
                        )  : (
                            <h2 className="font-italic ml-2">There are no estates added to this co ownership yet!</h2>
                        )

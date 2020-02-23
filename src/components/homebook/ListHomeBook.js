@@ -79,21 +79,23 @@ export default class ListHomeBook extends Component {
                 <h2>Home Book for <Link to={"/details-co-ownership/" + this.state.coOwnershipId} className='font-italic text-primary'>{this.state.coOwnershipName}</Link></h2>
                 <Link to={"/create-home-book/"+ this.state.coOwnershipId} className="btn btn-primary btn-rounded btn-sm mx-2 mb-3">Add Record</Link>
                 {this.state.ready ? (
-                    <table className="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Names</th>
-                            <th>To Estate</th>
-                            <th>Starting Date</th>
-                            <th>Type Of Busines</th>
-                            <th>Type Of Occupant</th>
-                            <th>Controls</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.homebook.map((p, i) => <HomeBook key={p._id} index={i} onDelete={this.onDelete} {...p} />)}
-                        </tbody>
-                    </table>
+                    <div className="table-responsive">
+                        <table className="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Names</th>
+                                <th>To Estate</th>
+                                <th>Starting Date</th>
+                                <th>Type Of Busines</th>
+                                <th>Type Of Occupant</th>
+                                <th>Controls</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.homebook.map((p, i) => <HomeBook key={p._id} index={i} onDelete={this.onDelete} {...p} />)}
+                            </tbody>
+                        </table>
+                    </div>
                 ) : (
                     <Loading />
                 )}
