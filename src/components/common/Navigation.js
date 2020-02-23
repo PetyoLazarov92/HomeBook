@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
+import React, {Component} from 'react'; 
 import { Navbar, Nav } from 'react-bootstrap';
 import observer from '../../infrastructure/observer';
 import userManageService from '../../services/userManageService';
@@ -58,22 +57,22 @@ export default class Navigation extends Component {
         const adminAccess = this.state.userRoles.indexOf('admin') !== -1;
 
         return(
-            <Navbar fixed="top" bg="light" expand="lg">
+            <Navbar fixed="top" bg="light" expand="lg" collapseOnSelect defaultExpanded={false}>
                 <div className="container">
                     <Navbar.Brand href="/">Home Book</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <NavLink exact to='/' className="nav-link" >Home</NavLink>
-                            <NavLink to='/about' className="nav-link" >About</NavLink>
-                            {adminAccess && <NavLink to='/admin-panel' className="nav-link" >Admin Panel</NavLink>}
-                            {houseManagerAccess && <NavLink to='/house-manager-panel' className="nav-link" >House Manager Panel</NavLink>}
-                            {houseManagerAccess && <NavLink to='/create-co-ownership' className="nav-link" >Create-Co-Ownership</NavLink>}
-                            {loggedIn && <NavLink to='/ownerships' className="nav-link" >Ownerships</NavLink>}
-                            {loggedIn && <NavLink to='/home' className="nav-link"><strong>Hello, {userName}!</strong></NavLink>}
-                            {loggedIn && <NavLink to='/logout' className="nav-link text-danger">Logout</NavLink>}
-                            {!loggedIn && <NavLink to='/register' className="nav-link" >Register</NavLink>}
-                            {!loggedIn && <NavLink to='/login' className="nav-link" >Login</NavLink>}
+                            <Nav.Link href='/' className="nav-link" >Home</Nav.Link>
+                            <Nav.Link href='/about' className="nav-link" >About</Nav.Link>
+                            {adminAccess && <Nav.Link href='/admin-panel' className="nav-link" >Admin Panel</Nav.Link>}
+                            {houseManagerAccess && <Nav.Link href='/house-manager-panel' className="nav-link" >House Manager Panel</Nav.Link>}
+                            {houseManagerAccess && <Nav.Link href='/create-co-ownership' className="nav-link" >Create-Co-Ownership</Nav.Link>}
+                            {loggedIn && <Nav.Link href='/ownerships' className="nav-link" >Ownerships</Nav.Link>}
+                            {loggedIn && <Nav.Link href='/home' className="nav-link"><strong>Hello, {userName}!</strong></Nav.Link>}
+                            {loggedIn && <Nav.Link href='/logout' className="nav-link text-danger">Logout</Nav.Link>}
+                            {!loggedIn && <Nav.Link href='/register' className="nav-link" >Register</Nav.Link>}
+                            {!loggedIn && <Nav.Link href='/login' className="nav-link" >Login</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </div>

@@ -39,7 +39,6 @@ export default class ListHomeBook extends Component {
     }
 
     onDelete = (id, target, targetEstate) => {
-        console.log(targetEstate.type)
         this.setState({
             showConfirm: true,
             target,

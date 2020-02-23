@@ -20,8 +20,6 @@ export default class CoOwnership extends Component {
 		if(this.props.subscribedUsers) {
 			this.props.subscribedUsers.map(user => user.userId === loggedInUser ? user.approved === "true" ? isApproved = true : null : null)
 		}
-		console.log(this.props.subscribedUsers)
-		console.log(isApproved)
       	return(
       		<tr>
         		<td>{this.props.name}

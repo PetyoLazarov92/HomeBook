@@ -75,7 +75,6 @@ export default class ManagedCoOwnerships extends Component {
                 return coOwnership._id.indexOf(this.state.slectedValue) !== -1
             }
         )[0]
-        console.log(selectedCoOwnership)
         return(
             <div className="d-flex flex-column flex-md-row">
                 <div className="col-12 pl-0">
