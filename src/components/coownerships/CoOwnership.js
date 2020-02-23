@@ -8,6 +8,7 @@ export default class CoOwnership extends Component {
 		const loggedInUser = sessionStorage.getItem('userId');
 		const isCreator = loggedInUser === this.props._acl.creator;
 		const userAccess = this.props.userRoles.indexOf('user') !== -1;
+		const adminAccess = this.props.userRoles.indexOf('admin') !== -1;
 		let isSubscribed = false
 		if(this.props.subscribedToCoOwnershipsArray.length !== 0){
 			for (let el of this.props.subscribedToCoOwnershipsArray) {
@@ -35,10 +36,10 @@ export default class CoOwnership extends Component {
 						: 
 						userAccess && <button onClick={() => this.props.subscribe(this.props._id)} className="btn box-shadow-none text-success mx-2 p-0" title="Subscribe"><i className="material-icons md-36">add_circle</i></button>
 					}
-        		    {(isCreator || isApproved) && <Link to={"/estates/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Estates"><i className="material-icons md-36">location_city</i></Link>}
-        		    {(isCreator || isApproved) && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">local_library</i></Link>}
-        		    {isCreator && <Link to={"/edit-co-ownership/"+ this.props._id} className="btn box-shadow-none text-warning mx-2 p-0" title="Edit"><i className="material-icons md-36">edit</i></Link>}
-        		    {isCreator && <button onClick={() => this.props.deleteCoOwnership(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Delete"><i className="material-icons md-36">delete_forever</i></button>}
+        		    {(isCreator || isApproved || adminAccess) && <Link to={"/estates/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Estates"><i className="material-icons md-36">location_city</i></Link>}
+        		    {(isCreator || isApproved || adminAccess) && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">local_library</i></Link>}
+        		    {(isCreator || adminAccess) && <Link to={"/edit-co-ownership/"+ this.props._id} className="btn box-shadow-none text-warning mx-2 p-0" title="Edit"><i className="material-icons md-36">edit</i></Link>}
+        		    {(isCreator || adminAccess) && <button onClick={() => this.props.deleteCoOwnership(this.props._id)} className="btn box-shadow-none text-danger mx-2 p-0" title="Delete"><i className="material-icons md-36">delete_forever</i></button>}
         		</td>
       		</tr>
     	)
