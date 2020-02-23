@@ -34,9 +34,8 @@ export default class HomeBook extends Component {
                 <td>{this.props.typeOfBusines}</td>
                 <td>{this.props.typeOfOccupant}</td>
                 <td>
-                    <Link to={"/edit-record/"+ this.props._id} className="btn btn-warning btn-rounded btn-sm mx-2">Edit</Link>
-                    <button onClick={this.deleteHandler.bind(this, this.props._id, this.props, this.state.estate)} className="btn btn-danger btn-sm">Delete</button>
-                    {/* <Link to={"/delete-record/"+ this.props._id} className="btn btn-danger btn-rounded btn-sm mx-2" params={{ coOwnershipId: this.props.toCoOwnership }}>Delete</Link> */}
+                    <Link to={"/edit-record/"+ this.props._id} className="btn box-shadow-none text-warning mx-2 p-0" title="Edit"><i className="material-icons md-36">edit</i></Link>
+                    <button onClick={this.deleteHandler.bind(this, this.props._id, this.props, this.state.estate)} className="btn box-shadow-none text-danger mx-2 p-0" title="Delete"><i className="material-icons md-36">delete_forever</i></button>
                 </td>
             </tr>
 
