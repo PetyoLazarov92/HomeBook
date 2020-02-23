@@ -5,6 +5,12 @@ import coOwnership from '../../services/coOwnershipService'
 
 export default class CreateCoOwnership extends Component {
     onSubmit = (data, e) => {
+        if(!data.name || 'empty' === data.name) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must write a name!' })
+        }
+        if(!data.city || 'empty' === data.city) {
+            return observer.trigger(observer.events.notification, {type: 'info', message: 'You must write a City!' })
+        }
         coOwnership.createCoOwnership(data)
         .then(res =>{
             observer.trigger(observer.events.notification, {type: 'success', message: "Co-Ownership Created Successfully!"})
@@ -23,7 +29,7 @@ export default class CreateCoOwnership extends Component {
                     <div  className="panel-body" >
                         <BoundForm onSubmit={this.onSubmit} className="form-horizontal">
                             <label htmlFor="name">Name:</label>
-                            <input type="text" className="form-control" name="name" placeholder="Name E.g.: (жк.Мрамор бл.15 вх.А)" required/>
+                            <input type="text" className="form-control" name="name" placeholder="Name E.g.: (Tri chuchura - South 40 B)"/>
 
                             <label htmlFor="area">Area:</label>
                             <input type="text" className="form-control" name="area" placeholder="area" />
@@ -38,7 +44,7 @@ export default class CreateCoOwnership extends Component {
                             <input type="text" className="form-control" name="postCode" placeholder="postal-code" />
 
                             <label htmlFor="city">City / Village:</label>
-                            <input type="text" className="form-control" name="city" placeholder="City / Village" required/>
+                            <input type="text" className="form-control" name="city" placeholder="City / Village"/>
 
                             <label htmlFor="neighborhood">Neighborhood:</label>
                             <input type="text" className="form-control" name="neighborhood" placeholder="Neighborhood" />
