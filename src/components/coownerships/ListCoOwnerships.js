@@ -195,8 +195,8 @@ export default class ListCoOwnership extends Component{
         }
         return (
             <div>
-                <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center">
-                    <h1>OwnerShips</h1>
+                <h1>OwnerShips</h1>
+                <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center mb-lg-3">
                     {houseManagerAccess && <div className="custom-control custom-switch mb-3 mb-lg-0">
                         <input
                             id="my-co-ownerships"
@@ -210,14 +210,14 @@ export default class ListCoOwnership extends Component{
                     </div>}
                     {userAccess && <div className="custom-control custom-switch mb-3 mb-lg-0">
                         <input
-                            id="my-co-ownerships"
+                            id="subscribed-to"
                             className="custom-control-input"
                             type="checkbox"
                             name="subscribedTo"
                             checked={this.state.subscribedTo}
                             onChange={this.handleMyCoOwnershipsChange}
                             />
-                        <label className="custom-control-label" htmlFor="my-co-ownerships">To which I am subscribed:</label>
+                        <label className="custom-control-label" htmlFor="subscribed-to">To which I am subscribed:</label>
                     </div>}
                     <div className="input-group input-group-sm search-co-ownership mb-3 mb-lg-0">
                         <div className="input-group-prepend">
