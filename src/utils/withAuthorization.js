@@ -9,8 +9,6 @@ function withAuthorization (TargetComponent, targetRoles) {
 			super(props);
 
 			this.state = {
-				roles: [],
-				availableRoles: [],
 				rolesAsNames:[],
 				ready: false
 			};
@@ -20,21 +18,14 @@ function withAuthorization (TargetComponent, targetRoles) {
 			userManageService.loadUsersRoles()
 				.then( res => {
 					let roles = sessionStorage.getItem('roles').split(',');
-					this.setState({
-						availableRoles: res,
-					})
-					if(roles){
-						this.setState({roles})
-					}
-						
-				})
-				.then( res => {
-					let rolesAsNames = this.state.availableRoles.filter(element => this.state.roles.indexOf(element._id) !== -1);
+					let availableRoles = res;
+					let rolesAsNames = availableRoles.filter(element => roles.indexOf(element._id) !== -1);
 					rolesAsNames = rolesAsNames.map(e => e.name);
-					this.setState({rolesAsNames})
 					this.setState({
+						rolesAsNames,
 						ready: true
 					})
+						
 				})
 				.catch(res =>  {
 					this.setState({
@@ -60,7 +51,7 @@ function withAuthorization (TargetComponent, targetRoles) {
 						return null
 					} else {
 						observer.trigger(observer.events.notification, {type: 'error', message: 'You are not logged in!.'});
-						this.props.history.push('/');
+						this.props.history.push('/login');
 						return null
 					}
 				} else {return <Loading />}
