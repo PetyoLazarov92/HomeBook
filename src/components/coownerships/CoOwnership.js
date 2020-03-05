@@ -36,6 +36,7 @@ export default class CoOwnership extends Component {
 						: 
 						userAccess && <button onClick={() => this.props.subscribe(this.props._id)} className="btn box-shadow-none text-success mx-2 p-0" title="Subscribe"><i className="material-icons md-36">add_circle</i></button>
 					}
+					{(!isApproved && isSubscribed && <span className="font-italic text-primary ml-2">Awaiting approval!</span>)}
         		    {(isCreator || isApproved || adminAccess) && <Link to={"/estates/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Estates"><i className="material-icons md-36">location_city</i></Link>}
         		    {(isCreator || isApproved || adminAccess) && <Link to={"/homebook/"+ this.props._id} className="btn box-shadow-none text-primary mx-2 p-0" title="Home Book"><i className="material-icons md-36">local_library</i></Link>}
         		    {(isCreator || adminAccess) && <Link to={"/edit-co-ownership/"+ this.props._id} className="btn box-shadow-none text-warning mx-2 p-0" title="Edit"><i className="material-icons md-36">edit</i></Link>}
